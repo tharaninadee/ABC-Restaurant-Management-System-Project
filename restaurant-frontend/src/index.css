@@ -1,0 +1,52 @@
+/* index.css or Home.css */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+
+:root {
+  --primary-color: #4E2A1C; /* Rich Brown */
+  --secondary-color: #eaac41; /* Gold */
+  --accent-color: #ff9670; /* Coral */
+  --background-color: #fffcf3; /* Cream */
+  --font-family: 'Poppins', sans-serif; 
+}
+
+
+body {
+  margin: 0;
+  display: flex;
+  padding: 0;
+  font-family: var(--font-family);
+  background-color: var(--background-color); 
+  min-height: 100vh;
+  overflow-x: hidden; 
+}
+
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+
+a {
+  color: var(--primary-color);
+  text-decoration: none;
+}
+
+a:hover {
+  color: var(--accent-color);
+}
+
+button {
+  background-color: var(--primary-color);
+  color: #ffffff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-family: var(--font-family);
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: var(--accent-color);
+}

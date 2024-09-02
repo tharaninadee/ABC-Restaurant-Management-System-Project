@@ -1,0 +1,110 @@
+/* Navbar container */
+.navbar {
+  background-color: transparent;
+  transition: background-color 0.5s ease, box-shadow 0.3s ease;
+  z-index: 1000;
+}
+
+.navbar.scrolled {
+  background-color: var(--primary-color); /* Ensure this variable is defined in your CSS */
+}
+
+.navbar-logo img {
+  height: 100px; /* Adjust height as needed */
+}
+
+/* Navbar link styling */
+.navbar a {
+  text-decoration: none;
+  color: inherit;
+  font-size: 16px; /* Adjust font size */
+  position: relative; /* Required for pseudo-element positioning */
+}
+
+.navbar a.active {
+  color: var(--text-dark); /* Ensure this variable is defined */
+}
+
+/* Gold line under active link */
+.navbar a.active::after {
+  content: '';
+  display: block;
+  width: 100%;
+  height: 2px; /* Adjust the thickness of the line */
+  background: var(--secondary-color); /* Gold color for the line */
+  position: absolute;
+  bottom: -5px; /* Adjust distance from text */
+  left: 0;
+}
+
+.navbar a:hover {
+  color: var(--text-dark); /* Ensure this variable is defined */
+  text-decoration: none; /* Remove underline */
+}
+
+/* Responsive design adjustments */
+@media (max-width: 768px) {
+  .navbar-logo img {
+    height: 60px; /* Adjust height for mobile view */
+  }
+
+  .navbar-menu {
+    display: none;
+  }
+
+  .menu-icon {
+    display: block;
+  }
+}
+
+@media (min-width: 769px) {
+  .navbar-menu {
+    display: flex;
+    flex-direction: row;
+  }
+
+  .navbar-icons {
+    display: flex;
+  }
+}
+
+/* Material-UI overrides */
+.MuiAppBar-root {
+  background-color: rgba(0, 0, 0, 0.2) !important;
+}
+
+.MuiAppBar-root.scrolled {
+  background-color: var(--primary-color) !important;
+}
+
+.MuiButton-root {
+  font-family: var(--font-family) !important;
+  text-transform: none; /* Ensure text is not uppercase */
+}
+
+/* Drawer styling */
+.MuiDrawer-paper {
+  background-color: #ffffff; /* Background color for the drawer */
+  color: var(--text-dark); /* Text color */
+}
+
+/* Drawer menu item styling */
+.MuiListItem-root {
+  font-size: 16px; /* Adjust font size */
+  color: var(--text-dark); /* Text color */
+}
+
+.MuiListItem-root.active {
+  color: var(--text-dark); /* Ensure text color is correct */
+  border-bottom: 2px solid var(--secondary-color); /* Gold underline for active item */
+}
+
+.MuiListItem-root:hover {
+  color: var(--text-dark); /* Text color on hover */
+}
+
+/* Adjust spacing and appearance for drawer items */
+.MuiListItem-root {
+  padding: 10px 20px; /* Adjust padding for better spacing */
+  border-bottom: 1px solid #f0f0f0; /* Optional: Add a border between items for separation */
+}
