@@ -9,6 +9,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class Reservation {
     @Id
     private String id;
+    private String restaurantId;  // Added field to link to restaurant
     private String customerName;
     private String customerEmail;
     private String contactPhone;
@@ -17,7 +18,7 @@ public class Reservation {
     private int guestsNumber;
     private String status;
     private String specialRequests;
-    private String tableNumber;
+    private String reservationType; // Added field to specify dine-in or takeaway
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
@@ -25,8 +26,9 @@ public class Reservation {
     public Reservation() {}
 
     // All-args constructor
-    public Reservation(String id, String customerName, String customerEmail, String contactPhone, LocalDateTime date, String time, int guestsNumber, String status, String specialRequests, String tableNumber, LocalDateTime createdAt, LocalDateTime updatedAt) {
+    public Reservation(String id, String restaurantId, String customerName, String customerEmail, String contactPhone, LocalDateTime date, String time, int guestsNumber, String status, String specialRequests, String reservationType, LocalDateTime createdAt, LocalDateTime updatedAt) {
         this.id = id;
+        this.restaurantId = restaurantId;
         this.customerName = customerName;
         this.customerEmail = customerEmail;
         this.contactPhone = contactPhone;
@@ -35,7 +37,7 @@ public class Reservation {
         this.guestsNumber = guestsNumber;
         this.status = status;
         this.specialRequests = specialRequests;
-        this.tableNumber = tableNumber;
+        this.reservationType = reservationType;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
     }
@@ -47,6 +49,14 @@ public class Reservation {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getRestaurantId() {
+        return restaurantId;
+    }
+
+    public void setRestaurantId(String restaurantId) {
+        this.restaurantId = restaurantId;
     }
 
     public String getCustomerName() {
@@ -113,12 +123,12 @@ public class Reservation {
         this.specialRequests = specialRequests;
     }
 
-    public String getTableNumber() {
-        return tableNumber;
+    public String getReservationType() {
+        return reservationType;
     }
 
-    public void setTableNumber(String tableNumber) {
-        this.tableNumber = tableNumber;
+    public void setReservationType(String reservationType) {
+        this.reservationType = reservationType;
     }
 
     public LocalDateTime getCreatedAt() {

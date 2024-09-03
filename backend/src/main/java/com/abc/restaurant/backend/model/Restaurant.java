@@ -12,18 +12,37 @@ public class Restaurant {
     @Id
     private String id;
     private String name;
+    private String branch;  // Added field for branch
     private String address;
     private String contactNumber;
     private int capacity;
-    private List<String> facilities; // Changed to a list of facilities
-    private List<String> services;
+    private String facilitiesId;  // Changed to a single String to match the provided collection
+    private List<String> services;  // Changed to List<String> based on the current collection
     private String description;
     private String imagePath;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
-    // Getters and Setters
+    // No-args constructor
+    public Restaurant() {}
 
+    // All-args constructor
+    public Restaurant(String id, String name, String branch, String address, String contactNumber, int capacity, String facilitiesId, List<String> services, String description, String imagePath, LocalDateTime createdAt, LocalDateTime updatedAt) {
+        this.id = id;
+        this.name = name;
+        this.branch = branch;
+        this.address = address;
+        this.contactNumber = contactNumber;
+        this.capacity = capacity;
+        this.facilitiesId = facilitiesId;
+        this.services = services;
+        this.description = description;
+        this.imagePath = imagePath;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+    }
+
+    // Getters and Setters
     public String getId() {
         return id;
     }
@@ -38,6 +57,14 @@ public class Restaurant {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getBranch() {
+        return branch;
+    }
+
+    public void setBranch(String branch) {
+        this.branch = branch;
     }
 
     public String getAddress() {
@@ -64,12 +91,12 @@ public class Restaurant {
         this.capacity = capacity;
     }
 
-    public List<String> getFacilities() {
-        return facilities;
+    public String getFacilitiesId() {
+        return facilitiesId;
     }
 
-    public void setFacilities(List<String> facilities) {
-        this.facilities = facilities;
+    public void setFacilitiesId(String facilitiesId) {
+        this.facilitiesId = facilitiesId;
     }
 
     public List<String> getServices() {

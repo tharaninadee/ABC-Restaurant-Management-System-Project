@@ -1,5 +1,6 @@
 package com.abc.restaurant.backend.service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,6 +21,10 @@ public class RestaurantService {
         // Ensure necessary fields are set
         if (restaurant.getName() == null || restaurant.getAddress() == null || restaurant.getCapacity() <= 0) {
             throw new IllegalArgumentException("Name, address, and capacity are required");
+        }
+        restaurant.setUpdatedAt(LocalDateTime.now());
+        if (restaurant.getCreatedAt() == null) {
+            restaurant.setCreatedAt(LocalDateTime.now());
         }
         return restaurantRepository.save(restaurant);
     }

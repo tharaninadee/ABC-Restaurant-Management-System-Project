@@ -1,5 +1,6 @@
 package com.abc.restaurant.backend.service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,9 +18,12 @@ public class OrderService {
 
     // Create or Update Order
     public Order saveOrder(Order order) {
-        // Ensure that all necessary fields are set
-        if (order.getCustomerId() == null || order.getItems() == null || order.getItems().isEmpty()) {
-            throw new IllegalArgumentException("Customer ID and items are required");
+        if (order.getCustomerId() == null || order.getFooditemsId() == null) {
+            throw new IllegalArgumentException("Customer ID and Fooditems ID are required");
+        }
+        order.setUpdatedAt(LocalDateTime.now());
+        if (order.getCreatedAt() == null) {
+            order.setCreatedAt(LocalDateTime.now());
         }
         return orderRepository.save(order);
     }
@@ -40,5 +44,17 @@ public class OrderService {
             throw new IllegalArgumentException("Order with ID " + id + " does not exist");
         }
         orderRepository.deleteById(id);
+    }
+
+    // Update Order Status
+    public Order updateOrderStatus(String id, String status) {
+        Optional<Order> optionalOrder = orderRepository.findById(id);
+        if (!optionalOrder.isPresent()) {
+            throw new IllegalArgumentException("Order with ID " + id + " does not exist");
+        }
+        Order order = optionalOrder.get();
+        order.setStatus(status);
+        order.setUpdatedAt(LocalDateTime.now());
+        return orderRepository.save(order);
     }
 }
