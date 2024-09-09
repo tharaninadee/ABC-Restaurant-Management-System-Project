@@ -1,30 +1,37 @@
-import React from 'react'
-import { Route, Routes } from 'react-router-dom'
-import Navbar from './components/Navbar/Navbar'
-import Footer from './components/Footer/Footer';
-import Home from './pages/Customer/Home/Home'
-import Selections from './pages/Customer/Selections/Product'
-import Restaurant from './pages/Customer/Restaurants/Restaurants'
-import Gallery from './pages/Customer/Gallery'
-import ContactUs from './pages/Customer/ContactUs'
+import React from 'react';
+import { Route, Routes, useLocation } from 'react-router-dom';
+import Navbar from './components/Customer/Navbar/Navbar';
+import Footer from './components/Customer/Footer/Footer';
+import Home from './components/Customer/Home/Home';
+import OrderMenu from './components/Customer/OrderMenu/OrderMenu';
+import Restaurant from './components/Customer/Restaurants/Restaurants';
+
+import AdminRoutes from './components/Admin/AdminRoutes'; 
+
 
 const App = () => {
+  const location = useLocation();
+  const isAdminRoute = location.pathname.startsWith('/admin');
+
   return (
     <div>
-      <Navbar /> 
+      {/* Conditionally render Navbar and Footer for non-admin routes */}
+      {!isAdminRoute && <Navbar />}
       <main>
-      <Routes>
+        <Routes>
+          {/* Main app routes */}
           <Route path="/" element={<Home />} />
-          <Route path="/selections" element={<Selections />} />
+          <Route path="/order-menu" element={<OrderMenu />} />
           <Route path="/restaurants" element={<Restaurant />} />
-          <Route path="/gallery" element={<Gallery />} />
-          <Route path="/contact-us" element={<ContactUs />} />
+         
+          
+           {/* Admin panel routes */}
+           <Route path="/admin/*" element={<AdminRoutes />} />
         </Routes>
-        
       </main>
-      <Footer />
+      {!isAdminRoute && <Footer />}
     </div>
-  )
-}
+  );
+};
 
-export default App
+export default App;

@@ -2,10 +2,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
 
 :root {
-  --primary-color: #4E2A1C; /* Rich Brown */
-  --secondary-color: #eaac41; /* Gold */
+  --primary-color: #643522; /* Rich Brown */
+  --secondary-color: #C2A152; /* Gold */
   --accent-color: #ff9670; /* Coral */
-  --background-color: #fffcf3; /* Cream */
+  --background-color: #fffcf3;
   --font-family: 'Poppins', sans-serif; 
 }
 
