@@ -1,0 +1,169 @@
+/* Navbar Styling */
+.navbar {
+    background-color: transparent; /* Default background color */
+    transition: background-color 0.3s ease; /* Smooth transition effect */
+    height: 100px;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 10;
+}
+
+/* Navbar color when scrolled */
+.navbar.scrolled {
+    background-color: rgba(0, 0, 0, 0.5); /* Change to the desired color */
+}
+
+.navbar-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 100px;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+/* Navbar Brand and Link Styles */
+.navbar-brand,
+.navbar-nav .nav-link {
+    color: #FFD700 !important; /* Dark yellow text color */
+    font-weight: bold;
+}
+
+/* Navbar Toggler Icon */
+.navbar-toggler-icon {
+    background-color: #FFD700; /* Dark yellow color for the toggle icon */
+}
+
+/* Change link color on hover */
+.navbar-nav .nav-link:hover {
+    color: #FFA500 !important; /* Lighter yellow/orange on hover */
+}
+
+/* Collapse menu background when toggled on mobile */
+.navbar-collapse {
+    background-color: #000; /* Ensure black background when collapsed */
+}
+
+.navbar {
+    transition: top 0.3s;
+}
+
+/* Optional: Hide navbar on scroll down and show on scroll up */
+.navbar.hidden {
+    top: -56px; /* Height of the navbar */
+}
+
+
+/* General Container */
+.table-container {
+    padding: 20px;
+    font-family: Arial, sans-serif;
+}
+
+/* Heading */
+.table-container h1 {
+    color: #333;
+    margin-bottom: 20px;
+}
+
+/* Button Styling */
+.btn-add, .btn-edit, .btn-delete {
+    background-color: #007bff; /* Blue */
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+.btn-add {
+    background-color: #28a745; /* Green */
+}
+
+.btn-edit {
+    background-color: #ffc107; /* Yellow */
+}
+
+.btn-delete {
+    background-color: #dc3545; /* Red */
+}
+
+.btn-add:hover, .btn-edit:hover, .btn-delete:hover {
+    opacity: 0.9;
+}
+
+/* Table Styling */
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+thead {
+    background-color: #f8f9fa; /* Light Gray */
+}
+
+th, td {
+    border: 1px solid #dee2e6; /* Border Color */
+    padding: 10px;
+    text-align: left;
+}
+
+th {
+    background-color: #e9ecef; /* Slightly Darker Gray */
+}
+
+.cover-image {
+    max-width: 100px;
+    height: auto;
+}
+
+/* Modal Styling */
+.Modal {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    right: auto;
+    bottom: auto;
+    marginRight: -50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+}
+
+.Overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    backgroundColor: 'rgba(0, 0, 0, 0.5)';
+    z-index: 1000;
+}
+
+
+input[type="text"], input[type="file"] {
+    display: block;
+    width: 100%;
+    margin-bottom: 10px;
+    padding: 8px;
+    border: 1px solid #ced4da; /* Border Color */
+    border-radius: 4px;
+}
+
+button {
+    background-color: #007bff; /* Blue */
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+button:hover {
+    opacity: 0.9;
+}
