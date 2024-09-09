@@ -1,11 +1,12 @@
 package com.abc.restaurant.backend.repository;
 
+import com.abc.restaurant.backend.model.Staff;
+import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.stereotype.Repository;
+
 import java.util.Optional;
 
-import org.springframework.data.mongodb.repository.MongoRepository;
-
-import com.abc.restaurant.backend.model.Staff;
-
+@Repository
 public interface StaffRepository extends MongoRepository<Staff, String> {
     Optional<Staff> findByEmail(String email);
 }

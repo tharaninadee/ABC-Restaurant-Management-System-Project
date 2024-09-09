@@ -1,36 +1,27 @@
 package com.abc.restaurant.backend.model;
 
-import java.time.LocalDateTime;
-
+import lombok.Data;
+import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document(collection = "facilities")  // Ensure this matches your collection name
+@Document(collection = "facility")
 public class Facility {
     @Id
     private String id;
-    private String name;
+    private String heading;
     private String description;
-    private int capacity;
-    private String restaurantId;  // Reference to the restaurant this facility belongs to
-    private LocalDateTime createdAt;
-    private LocalDateTime updatedAt;
+    private String image; // Ensure this is defined as byte[]
+    private int capacity; // New field added
 
-    // No-args constructor
-    public Facility() {}
-
-    // All-args constructor
-    public Facility(String id, String name, String description, int capacity, String restaurantId, LocalDateTime createdAt, LocalDateTime updatedAt) {
+    public Facility(String id, String heading, String description, String image, int capacity) {
         this.id = id;
-        this.name = name;
+        this.heading = heading;
         this.description = description;
-        this.capacity = capacity;
-        this.restaurantId = restaurantId;
-        this.createdAt = createdAt;
-        this.updatedAt = updatedAt;
+        this.image = image;
+        this.capacity = capacity; // Initialize new field
     }
 
-    // Getters and Setters
     public String getId() {
         return id;
     }
@@ -39,12 +30,12 @@ public class Facility {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getHeading() {
+        return heading;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setHeading(String heading) {
+        this.heading = heading;
     }
 
     public String getDescription() {
@@ -55,35 +46,19 @@ public class Facility {
         this.description = description;
     }
 
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
     public int getCapacity() {
         return capacity;
     }
 
     public void setCapacity(int capacity) {
         this.capacity = capacity;
-    }
-
-    public String getRestaurantId() {
-        return restaurantId;
-    }
-
-    public void setRestaurantId(String restaurantId) {
-        this.restaurantId = restaurantId;
-    }
-
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public LocalDateTime getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public void setUpdatedAt(LocalDateTime updatedAt) {
-        this.updatedAt = updatedAt;
     }
 }

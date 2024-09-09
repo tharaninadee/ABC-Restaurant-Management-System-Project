@@ -138,6 +138,17 @@ public class UserService {
                 .filter(customer -> customer.getPassword().equals(password));
     }
 
+    // Signup Method
+    public Customer signupCustomer(Customer customer) {
+        validateUser(customer);
+        if (customerRepository.findByEmail(customer.getEmail()).isPresent()) {
+            throw new IllegalArgumentException("Email already in use");
+        }
+        customer.setCreatedAt(LocalDateTime.now());
+        customer.setUpdatedAt(LocalDateTime.now());
+        return customerRepository.save(customer);
+    }
+
     // Common Validation Method
     private void validateUser(Object user) {
         switch (user) {
@@ -160,4 +171,3 @@ public class UserService {
         }
     }
 }
-

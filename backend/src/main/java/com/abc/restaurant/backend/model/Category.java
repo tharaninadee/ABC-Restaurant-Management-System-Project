@@ -1,34 +1,24 @@
 package com.abc.restaurant.backend.model;
 
-import java.time.LocalDateTime;
-
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+
+import java.util.List;
+
 
 @Document(collection = "categories")
 public class Category {
     @Id
     private String id;
     private String name;
-    private String description;
-    private LocalDateTime createdAt;
-    private LocalDateTime updatedAt;
-    private String imagePath;
+    private List<Item> items;
 
-    // No-args constructor
-    public Category() {}
-
-    // All-args constructor
-    public Category(String id, String name, String description, LocalDateTime createdAt, LocalDateTime updatedAt, String imagePath) {
+    public Category(String id, String name, List<Item> items) {
         this.id = id;
         this.name = name;
-        this.description = description;
-        this.createdAt = createdAt;
-        this.updatedAt = updatedAt;
-        this.imagePath = imagePath;
+        this.items = items;
     }
 
-    // Getters and Setters
     public String getId() {
         return id;
     }
@@ -45,35 +35,78 @@ public class Category {
         this.name = name;
     }
 
-    public String getDescription() {
-        return description;
+    public List<Item> getItems() {
+        return items;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setItems(List<Item> items) {
+        this.items = items;
     }
 
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
-    }
 
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
-    }
+    public static class Item {
+        private String id;
+        private String name;
+        private String number;
+        private double price;
+        private String description;
+        private String image;
 
-    public LocalDateTime getUpdatedAt() {
-        return updatedAt;
-    }
+        public Item(String id, String name, String number, double price, String description, String image) {
+            this.id = id;
+            this.name = name;
+            this.number = number;
+            this.price = price;
+            this.description = description;
+            this.image = image;
+        }
 
-    public void setUpdatedAt(LocalDateTime updatedAt) {
-        this.updatedAt = updatedAt;
-    }
+        public String getId() {
+            return id;
+        }
 
-    public String getImagePath() {
-        return imagePath;
-    }
+        public void setId(String id) {
+            this.id = id;
+        }
 
-    public void setImagePath(String imagePath) {
-        this.imagePath = imagePath;
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public String getNumber() {
+            return number;
+        }
+
+        public void setNumber(String number) {
+            this.number = number;
+        }
+
+        public double getPrice() {
+            return price;
+        }
+
+        public void setPrice(double price) {
+            this.price = price;
+        }
+
+        public String getDescription() {
+            return description;
+        }
+
+        public void setDescription(String description) {
+            this.description = description;
+        }
+
+        public String getImage() {
+            return image;
+        }
+
+        public void setImage(String image) {
+            this.image = image;
+        }
     }
 }

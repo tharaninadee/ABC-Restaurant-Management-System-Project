@@ -1,7 +1,5 @@
 package com.abc.restaurant.backend.model;
 
-import java.time.LocalDateTime;
-
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -9,25 +7,16 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class Gallery {
     @Id
     private String id;
-    private String restaurantId;
-    private String category;
-    private String imageUrl;
-    private String description;
-    private LocalDateTime createdAt;
-    private LocalDateTime updatedAt;
+    private String imagePath;  // Changed from imageUrl to imagePath
+    private String galleryType;
 
-    // No-args constructor
+    // Default constructor
     public Gallery() {}
 
-    // All-args constructor
-    public Gallery(String id, String restaurantId, String category, String imageUrl, String description, LocalDateTime createdAt, LocalDateTime updatedAt) {
-        this.id = id;
-        this.restaurantId = restaurantId;
-        this.category = category;
-        this.imageUrl = imageUrl;
-        this.description = description;
-        this.createdAt = createdAt;
-        this.updatedAt = updatedAt;
+    // Parameterized constructor
+    public Gallery(String imagePath, String galleryType) {
+        this.imagePath = imagePath;
+        this.galleryType = galleryType;
     }
 
     // Getters and Setters
@@ -39,51 +28,19 @@ public class Gallery {
         this.id = id;
     }
 
-    public String getRestaurantId() {
-        return restaurantId;
+    public String getImagePath() {
+        return imagePath;
     }
 
-    public void setRestaurantId(String restaurantId) {
-        this.restaurantId = restaurantId;
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
     }
 
-    public String getCategory() {
-        return category;
+    public String getGalleryType() {
+        return galleryType;
     }
 
-    public void setCategory(String category) {
-        this.category = category;
-    }
-
-    public String getImageUrl() {
-        return imageUrl;
-    }
-
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public LocalDateTime getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public void setUpdatedAt(LocalDateTime updatedAt) {
-        this.updatedAt = updatedAt;
+    public void setGalleryType(String galleryType) {
+        this.galleryType = galleryType;
     }
 }

@@ -1,44 +1,85 @@
 package com.abc.restaurant.backend.service;
 
-import java.util.List;
-import java.util.Optional;
-
+import com.abc.restaurant.backend.model.Category;
+import com.abc.restaurant.backend.repository.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.abc.restaurant.backend.model.Category;
-import com.abc.restaurant.backend.repository.CategoryRepository;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class CategoryService {
 
+
     @Autowired
     private CategoryRepository categoryRepository;
 
-    // Create or Update Category
-    public Category saveCategory(Category category) {
-        // Ensure that all necessary fields are set
-        if (category.getName() == null || category.getDescription() == null) {
-            throw new IllegalArgumentException("Name and description are required");
-        }
-        return categoryRepository.save(category);
-    }
 
-    // Get All Categories
     public List<Category> getAllCategories() {
         return categoryRepository.findAll();
     }
 
-    // Get Category by ID
     public Optional<Category> getCategoryById(String id) {
         return categoryRepository.findById(id);
     }
 
-    // Delete Category by ID
-    public void deleteCategory(String id) {
-        if (!categoryRepository.existsById(id)) {
-            throw new IllegalArgumentException("Category with ID " + id + " does not exist");
+    public Category addCategory(Category category) {
+        return categoryRepository.save(category);
+    }
+
+    public Category updateCategory(String id, Category category) {
+        if (categoryRepository.existsById(id)) {
+            category.setId(id);
+            return categoryRepository.save(category);
         }
+        return null;
+    }
+
+    public void deleteCategory(String id) {
         categoryRepository.deleteById(id);
     }
+
+    public Category addItemToCategory(String id, Category.Item item) {
+        Optional<Category> categoryOptional = categoryRepository.findById(id);
+        if (categoryOptional.isPresent()) {
+            Category category = categoryOptional.get();
+            category.getItems().add(item);
+            return categoryRepository.save(category);
+        }
+        return null;
+    }
+
+    public Category updateItemInCategory(String id, String itemId, Category.Item updatedItem) {
+        Optional<Category> categoryOptional = categoryRepository.findById(id);
+        if (categoryOptional.isPresent()) {
+            Category category = categoryOptional.get();
+            category.getItems().removeIf(item -> item.getId().equals(itemId));
+            category.getItems().add(updatedItem);
+            return categoryRepository.save(category);
+        }
+        throw new RuntimeException("Category not found");
+    }
+
+    public void deleteItemFromCategory(String id, String itemId) {
+        Category category = categoryRepository.findById(id).orElseThrow(() -> new RuntimeException("Category not found"));
+        category.setItems(category.getItems().stream()
+                .filter(item -> !item.getId().equals(itemId))
+                .collect(Collectors.toList()));
+
+        categoryRepository.save(category);
+    }
+
+    public List<Category.Item> searchItemsByName(String categoryId, String itemName) {
+        Optional<Category> categoryOptional = categoryRepository.findById(categoryId);
+        if (categoryOptional.isPresent()) {
+            Category category = categoryOptional.get();
+            return category.getItems().stream()
+                    .filter(item -> item.getName().toLowerCase().contains(itemName.toLowerCase()))
+                    .collect(Collectors.toList());
+        }
+        throw new RuntimeException("Category not found");
+    }
+
 }

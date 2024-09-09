@@ -1,50 +1,41 @@
 package com.abc.restaurant.backend.service;
 
-import java.time.LocalDateTime;
-import java.util.List;
-import java.util.Optional;
-
+import com.abc.restaurant.backend.model.Facility;
+import com.abc.restaurant.backend.repository.FacilityRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.abc.restaurant.backend.model.Facility;
-import com.abc.restaurant.backend.repository.FacilityRepository;
+import java.util.List;
+import java.util.Optional;
 
 @Service
 public class FacilityService {
-
     @Autowired
     private FacilityRepository facilityRepository;
 
-    // Create or Update Facility
-    public Facility saveFacility(Facility facility) {
-        // Ensure that necessary fields are set
-        if (facility.getName() == null || facility.getDescription() == null) {
-            throw new IllegalArgumentException("Name and description are required");
-        }
-        // Set timestamps
-        if (facility.getId() == null) {
-            facility.setCreatedAt(LocalDateTime.now());
-        }
-        facility.setUpdatedAt(LocalDateTime.now());
-        return facilityRepository.save(facility);
-    }
-
-    // Get All Facilities
     public List<Facility> getAllFacilities() {
         return facilityRepository.findAll();
     }
 
-    // Get Facility by ID
     public Optional<Facility> getFacilityById(String id) {
         return facilityRepository.findById(id);
     }
 
-    // Delete Facility by ID
+    public Facility addFacility(Facility facility) {
+        return facilityRepository.save(facility);
+    }
+
+    public Facility updateFacility(String id, Facility facilityDetails) {
+        Facility facility = facilityRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid facility Id: " + id));
+        facility.setHeading(facilityDetails.getHeading());
+        facility.setDescription(facilityDetails.getDescription());
+        facility.setImage(facilityDetails.getImage());
+        facility.setCapacity(facilityDetails.getCapacity());
+        return facilityRepository.save(facility);
+    }
+
     public void deleteFacility(String id) {
-        if (!facilityRepository.existsById(id)) {
-            throw new IllegalArgumentException("Facility with ID " + id + " does not exist");
-        }
         facilityRepository.deleteById(id);
     }
 }

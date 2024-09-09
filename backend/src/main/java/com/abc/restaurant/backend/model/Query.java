@@ -1,9 +1,9 @@
 package com.abc.restaurant.backend.model;
 
-import java.time.LocalDateTime;
-
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+
+import java.time.LocalDateTime;
 
 @Document(collection = "queries")
 public class Query {
@@ -15,28 +15,12 @@ public class Query {
     private String content;
     private String response;
     private String status;
-    private String assignedTo;
+    private String staffUsername; // Changed from staffId to staffUsername
     private LocalDateTime resolvedAt;
     private LocalDateTime createdAt;
-    private LocalDateTime updatedAt;
 
-    // No-args constructor
+    // Default constructor
     public Query() {}
-
-    // All-args constructor
-    public Query(String id, String customerName, String customerEmail, String contactPhone, String content, String response, String status, String assignedTo, LocalDateTime resolvedAt, LocalDateTime createdAt, LocalDateTime updatedAt) {
-        this.id = id;
-        this.customerName = customerName;
-        this.customerEmail = customerEmail;
-        this.contactPhone = contactPhone;
-        this.content = content;
-        this.response = response;
-        this.status = status;
-        this.assignedTo = assignedTo;
-        this.resolvedAt = resolvedAt;
-        this.createdAt = createdAt;
-        this.updatedAt = updatedAt;
-    }
 
     // Getters and Setters
     public String getId() {
@@ -95,12 +79,12 @@ public class Query {
         this.status = status;
     }
 
-    public String getAssignedTo() {
-        return assignedTo;
+    public String getStaffUsername() {
+        return staffUsername;
     }
 
-    public void setAssignedTo(String assignedTo) {
-        this.assignedTo = assignedTo;
+    public void setStaffUsername(String staffUsername) {
+        this.staffUsername = staffUsername;
     }
 
     public LocalDateTime getResolvedAt() {
@@ -117,13 +101,5 @@ public class Query {
 
     public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
-    }
-
-    public LocalDateTime getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public void setUpdatedAt(LocalDateTime updatedAt) {
-        this.updatedAt = updatedAt;
     }
 }

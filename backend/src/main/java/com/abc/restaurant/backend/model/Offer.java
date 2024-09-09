@@ -1,29 +1,28 @@
 package com.abc.restaurant.backend.model;
 
-import java.time.LocalDateTime;
-
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+@Setter
+@Getter
 @Document(collection = "offers")
 public class Offer {
     @Id
     private String id;
     private String title;
     private String description;
-    private LocalDateTime createdAt;
-    private String imageUrl;
+    private String imagePath;
 
-    // No-args constructor
+    // Default constructor
     public Offer() {}
 
-    // All-args constructor
-    public Offer(String id, String title, String description, LocalDateTime createdAt, String imageUrl) {
-        this.id = id;
+    // Parameterized constructor
+    public Offer(String title, String description, String imagePath) {
         this.title = title;
         this.description = description;
-        this.createdAt = createdAt;
-        this.imageUrl = imageUrl;
+        this.imagePath = imagePath;
     }
 
     // Getters and Setters
@@ -51,19 +50,11 @@ public class Offer {
         this.description = description;
     }
 
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
+    public String getImagePath() {
+        return imagePath;
     }
 
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public String getImageUrl() {
-        return imageUrl;
-    }
-
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
     }
 }

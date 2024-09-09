@@ -1,13 +1,13 @@
 package com.abc.restaurant.backend.service;
 
-import java.util.List;
-import java.util.Optional;
-
+import com.abc.restaurant.backend.model.Query;
+import com.abc.restaurant.backend.repository.QueryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.abc.restaurant.backend.model.Query;
-import com.abc.restaurant.backend.repository.QueryRepository;
+import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Optional;
 
 @Service
 public class QueryService {
@@ -15,30 +15,56 @@ public class QueryService {
     @Autowired
     private QueryRepository queryRepository;
 
-    // Create or Update Query
-    public Query saveQuery(Query query) {
-        // Ensure that necessary fields are set
-        if (query.getCustomerName() == null || query.getContent() == null) {
-            throw new IllegalArgumentException("Customer name and content are required");
-        }
-        return queryRepository.save(query);
-    }
-
-    // Get All Queries
+    // Get all queries
     public List<Query> getAllQueries() {
         return queryRepository.findAll();
     }
 
-    // Get Query by ID
+    // Get a query by ID
     public Optional<Query> getQueryById(String id) {
         return queryRepository.findById(id);
     }
 
-    // Delete Query by ID
-    public void deleteQuery(String id) {
-        if (!queryRepository.existsById(id)) {
-            throw new IllegalArgumentException("Query with ID " + id + " does not exist");
+    // Add a new query
+    public Query addQuery(Query query) {
+        query.setCreatedAt(LocalDateTime.now()); // Set creation date
+        query.setResolvedAt(null); // Ensure resolvedAt is null when creating a new query
+        return queryRepository.save(query);
+    }
+
+    // Update an existing query
+    public Query updateQuery(String id, Query queryDetails) {
+        Optional<Query> existingQueryOpt = queryRepository.findById(id);
+        if (existingQueryOpt.isPresent()) {
+            Query existingQuery = existingQueryOpt.get();
+            existingQuery.setCustomerName(queryDetails.getCustomerName());
+            existingQuery.setCustomerEmail(queryDetails.getCustomerEmail());
+            existingQuery.setContactPhone(queryDetails.getContactPhone());
+            existingQuery.setContent(queryDetails.getContent());
+            existingQuery.setResponse(queryDetails.getResponse());
+            existingQuery.setStatus(queryDetails.getStatus());
+            existingQuery.setStaffUsername(queryDetails.getStaffUsername());
+
+            // Set resolvedAt to the current time if the status is 'resolved'
+            if ("resolved".equals(queryDetails.getStatus())) {
+                existingQuery.setResolvedAt(LocalDateTime.now());
+            }
+
+            return queryRepository.save(existingQuery);
+        } else {
+            throw new RuntimeException("Query with ID " + id + " not found");
+            // Alternatively, you can throw a custom exception here
         }
-        queryRepository.deleteById(id);
+    }
+
+    // Delete a query by ID
+    public void deleteQuery(String id) {
+        // You might want to check if the query exists before attempting to delete
+        if (queryRepository.existsById(id)) {
+            queryRepository.deleteById(id);
+        } else {
+            throw new RuntimeException("Query with ID " + id + " not found");
+            // Alternatively, you can throw a custom exception here
+        }
     }
 }

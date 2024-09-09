@@ -1,149 +1,71 @@
 package com.abc.restaurant.backend.model;
 
-import java.time.LocalDateTime;
-
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.time.LocalDateTime;
+
 @Document(collection = "reservation")
 public class Reservation {
+
     @Id
     private String id;
-    private String restaurantId;  // Added field to link to restaurant
+    private String restaurantName;  // Name of the restaurant
+    private String facilityHeading; // Name of the facility
     private String customerName;
     private String customerEmail;
     private String contactPhone;
-    private LocalDateTime date;
-    private String time;
+    private LocalDateTime dateTime; // Combining date and time
     private int guestsNumber;
-    private String status;
+    private String status; // e.g., "confirmed", "pending"
     private String specialRequests;
-    private String reservationType; // Added field to specify dine-in or takeaway
-    private LocalDateTime createdAt;
-    private LocalDateTime updatedAt;
 
-    // No-args constructor
+    // Constructors
     public Reservation() {}
 
-    // All-args constructor
-    public Reservation(String id, String restaurantId, String customerName, String customerEmail, String contactPhone, LocalDateTime date, String time, int guestsNumber, String status, String specialRequests, String reservationType, LocalDateTime createdAt, LocalDateTime updatedAt) {
+    public Reservation(String id, String restaurantName, String facilityHeading, String customerName,
+                       String customerEmail, String contactPhone, LocalDateTime dateTime, int guestsNumber,
+                       String status, String specialRequests) {
         this.id = id;
-        this.restaurantId = restaurantId;
+        this.restaurantName = restaurantName;
+        this.facilityHeading = facilityHeading;
         this.customerName = customerName;
         this.customerEmail = customerEmail;
         this.contactPhone = contactPhone;
-        this.date = date;
-        this.time = time;
+        this.dateTime = dateTime;
         this.guestsNumber = guestsNumber;
         this.status = status;
         this.specialRequests = specialRequests;
-        this.reservationType = reservationType;
-        this.createdAt = createdAt;
-        this.updatedAt = updatedAt;
     }
 
     // Getters and Setters
-    public String getId() {
-        return id;
-    }
+    public String getId() { return id; }
+    public void setId(String id) { this.id = id; }
 
-    public void setId(String id) {
-        this.id = id;
-    }
+    public String getRestaurantName() { return restaurantName; }
+    public void setRestaurantName(String restaurantName) { this.restaurantName = restaurantName; }
 
-    public String getRestaurantId() {
-        return restaurantId;
-    }
+    public String getFacilityHeading() { return facilityHeading; }
+    public void setFacilityHeading(String facilityHeading) { this.facilityHeading = facilityHeading; }
 
-    public void setRestaurantId(String restaurantId) {
-        this.restaurantId = restaurantId;
-    }
+    public String getCustomerName() { return customerName; }
+    public void setCustomerName(String customerName) { this.customerName = customerName; }
 
-    public String getCustomerName() {
-        return customerName;
-    }
+    public String getCustomerEmail() { return customerEmail; }
+    public void setCustomerEmail(String customerEmail) { this.customerEmail = customerEmail; }
 
-    public void setCustomerName(String customerName) {
-        this.customerName = customerName;
-    }
+    public String getContactPhone() { return contactPhone; }
+    public void setContactPhone(String contactPhone) { this.contactPhone = contactPhone; }
 
-    public String getCustomerEmail() {
-        return customerEmail;
-    }
+    public LocalDateTime getDateTime() { return dateTime; }
+    public void setDateTime(LocalDateTime dateTime) { this.dateTime = dateTime; }
 
-    public void setCustomerEmail(String customerEmail) {
-        this.customerEmail = customerEmail;
-    }
+    public int getGuestsNumber() { return guestsNumber; }
+    public void setGuestsNumber(int guestsNumber) { this.guestsNumber = guestsNumber; }
 
-    public String getContactPhone() {
-        return contactPhone;
-    }
+    public String getStatus() { return status; }
+    public void setStatus(String status) { this.status = status; }
 
-    public void setContactPhone(String contactPhone) {
-        this.contactPhone = contactPhone;
-    }
-
-    public LocalDateTime getDate() {
-        return date;
-    }
-
-    public void setDate(LocalDateTime date) {
-        this.date = date;
-    }
-
-    public String getTime() {
-        return time;
-    }
-
-    public void setTime(String time) {
-        this.time = time;
-    }
-
-    public int getGuestsNumber() {
-        return guestsNumber;
-    }
-
-    public void setGuestsNumber(int guestsNumber) {
-        this.guestsNumber = guestsNumber;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public String getSpecialRequests() {
-        return specialRequests;
-    }
-
-    public void setSpecialRequests(String specialRequests) {
-        this.specialRequests = specialRequests;
-    }
-
-    public String getReservationType() {
-        return reservationType;
-    }
-
-    public void setReservationType(String reservationType) {
-        this.reservationType = reservationType;
-    }
-
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public LocalDateTime getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public void setUpdatedAt(LocalDateTime updatedAt) {
-        this.updatedAt = updatedAt;
-    }
+    public String getSpecialRequests() { return specialRequests; }
+    public void setSpecialRequests(String specialRequests) { this.specialRequests = specialRequests; }
 }

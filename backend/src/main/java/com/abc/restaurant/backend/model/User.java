@@ -23,6 +23,7 @@ public class User {
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
+    // Explicit constructor
     public User(String id, String email, String username, String password, String contactNumber, String fullName, String role, LocalDateTime createdAt, LocalDateTime updatedAt) {
         this.id = id;
         this.email = email;
@@ -35,7 +36,7 @@ public class User {
         this.updatedAt = updatedAt;
     }
 
-    // Getters and Setters
+    // Getters and Setters (not needed if using @Data)
     public String getId() {
         return id;
     }

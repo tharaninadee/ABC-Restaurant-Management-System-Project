@@ -142,11 +142,7 @@ public class UserController {
     @GetMapping("/customer/{id}")
     public ResponseEntity<Customer> getCustomerById(@PathVariable String id) {
         Optional<Customer> customer = userService.getCustomerById(id);
-        if (customer.isPresent()) {
-            return ResponseEntity.ok(customer.get());
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+        return customer.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @PutMapping("/customer/{id}")
