@@ -23,8 +23,8 @@ public class ReservationService {
     }
 
     public Reservation addReservation(Reservation reservation) {
-        // Ensure that the reservation status is set to "pending" initially
-        reservation.setStatus("pending");
+        // Set the reservation status to "confirmed" upon creation
+        reservation.setStatus("confirmed");
         return reservationRepository.save(reservation);
     }
 
@@ -46,11 +46,18 @@ public class ReservationService {
 
             // Save and return updated reservation
             return reservationRepository.save(existingReservation);
+        } else {
+            // Handle the case where the reservation is not found
+            throw new RuntimeException("Reservation not found with id: " + id);
         }
-        return null; // Or handle the case where the reservation is not found
     }
 
     public void deleteReservation(String id) {
-        reservationRepository.deleteById(id);
+        try {
+            reservationRepository.deleteById(id);
+        } catch (Exception e) {
+            // Log the exception and handle it accordingly
+            throw new RuntimeException("Failed to delete reservation with id: " + id, e);
+        }
     }
 }
