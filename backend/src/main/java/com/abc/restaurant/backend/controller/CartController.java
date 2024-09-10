@@ -24,38 +24,51 @@ public class CartController {
     @PostMapping
     public ResponseEntity<Cart> createCart(@RequestBody Cart cart) {
         try {
+            // Create cart and set orderId if not already present
             Cart createdCart = cartService.createCart(cart);
 
             // Build the email body with detailed cart information
             StringBuilder textBuilder = new StringBuilder();
-            textBuilder.append(String.format("Thank you for your order with ABC Restaurant, %s.\n\n", cart.getUserEmail()));
-            textBuilder.append("Your order is confirmed.\n\n");
+            textBuilder.append(String.format("Dear %s,\n\n", cart.getCustomerName()));
+            textBuilder.append("Thank you for your order with ABC Restaurant. Your order has been confirmed.\n\n");
 
-            // Iterate over the items in the cart and append details
+            // Include address details only for Delivery orders
+            if ("Delivery".equalsIgnoreCase(cart.getOrderType())) {
+                Cart.Address address = cart.getCustomerAddress();
+                textBuilder.append("Delivery Address:\n");
+                textBuilder.append(String.format("%s\n", address.getStreet()));
+                textBuilder.append(String.format("%s, %s\n", address.getCity(), address.getPostalCode()));
+                textBuilder.append(String.format("%s\n\n", address.getCountry()));
+            }
+
+            // Add order details
+            textBuilder.append("Order Details:\n");
             for (Cart.CartItem item : createdCart.getItems()) {
-                textBuilder.append(String.format("Item: %s\n", item.getName()));
+                textBuilder.append(String.format("Item: %s\n", item.getItemName()));
                 textBuilder.append(String.format("Quantity: %d\n", item.getQuantity()));
                 textBuilder.append(String.format("Unit Price: Rs. %.2f\n", item.getPrice()));
-                textBuilder.append(String.format("Total Price: Rs. %.2f\n\n", item.getTotal()));
+                textBuilder.append(String.format("Total Price: Rs. %.2f\n\n", item.getQuantity() * item.getPrice()));
             }
 
             // Add overall total price
-            double total = createdCart.getItems().stream().mapToDouble(Cart.CartItem::getTotal).sum();
-            textBuilder.append(String.format("Total Price: Rs. %.2f\n\n", total));
+            textBuilder.append(String.format("Total Price: Rs. %.2f\n\n", createdCart.getTotal()));
 
             // Add selected options
-            textBuilder.append(String.format("Options:\n"));
+            textBuilder.append("Order Options:\n");
             textBuilder.append(String.format("Outlet: %s\n", createdCart.getOutlet()));
-            textBuilder.append(String.format("Delivery/Takeaway: %s\n", createdCart.getOption()));
+            textBuilder.append(String.format("Order Type: %s\n\n", createdCart.getOrderType()));
 
-            textBuilder.append("\nFor any clarification, please call the ABC Restaurant Front Desk.\n\n");
-            textBuilder.append("ABC RESTAURANT \n");
-            textBuilder.append("Telephone No: 0112744588");
+            // Add special note if present
+            if (createdCart.getSpecialNote() != null && !createdCart.getSpecialNote().isEmpty()) {
+                textBuilder.append(String.format("Special Note: %s\n\n", createdCart.getSpecialNote()));
+            }
+
+            // Add final note
+            textBuilder.append("For any clarification, please call the ABC Restaurant Customer Care.\n\n");
+            textBuilder.append("ABC Restaurant Colombo\n");
 
             String emailBody = textBuilder.toString();
-
-            // Send confirmation email
-            emailService.sendEmail(cart.getUserEmail(), "Order Confirmation", emailBody);
+            emailService.sendEmail(cart.getCustomerEmail(), "Order Confirmation", emailBody);
 
             return ResponseEntity.ok(createdCart);
         } catch (MessagingException e) {
@@ -72,7 +85,12 @@ public class CartController {
 
     @GetMapping
     public ResponseEntity<List<Cart>> getAllCarts() {
-        return ResponseEntity.ok(cartService.getAllCarts());
+        List<Cart> carts = cartService.getAllCarts();
+        if (carts.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        } else {
+            return ResponseEntity.ok(carts);
+        }
     }
 
     @PutMapping("/{id}")
@@ -83,22 +101,16 @@ public class CartController {
                 // After successfully updating, check the status
                 if ("Ready".equalsIgnoreCase(cart.getStatus())) {
                     // Construct the email body for confirmed status
-                    String emailBody = String.format(
-                            "Thank you for your order with ABC Restaurant,\n\n" +
-                                    "Your order is ready at the outlet.\n\n" +
-                                    "Outlet: %s\n\n" +
-                                    "For any clarification, please call the ABC Restaurant Front Desk.\n\n" +
-                                    "ABC RESTAURANT \n" +
-                                    "Telephone No: 0112744588",
-                            cart.getOutlet()
-                    );
+                    StringBuilder emailBody = new StringBuilder();
+                    emailBody.append(String.format("Dear %s,\n\n", cart.getCustomerName()));
+                    emailBody.append("Your order is now ready at the outlet.\n\n");
+                    emailBody.append(String.format("Order ID: %s\n", cart.getOrderId()));
+                    emailBody.append(String.format("Outlet: %s\n\n", cart.getOutlet()));
+                    emailBody.append("For any clarification, please call the ABC Restaurant Customer Care.\n\n");
+                    emailBody.append("ABC Restaurant Colombo\n");
 
                     // Send the email for confirmed order
-                    emailService.sendEmail(
-                            cart.getUserEmail(),
-                            "Order is Ready",
-                            emailBody
-                    );
+                    emailService.sendEmail(cart.getCustomerEmail(), "Order Ready for Pickup/Delivery", emailBody.toString());
                 }
 
                 return ResponseEntity.ok(cart);
@@ -126,17 +138,5 @@ public class CartController {
     public ResponseEntity<Double> getCartTotal(@PathVariable String id) {
         double total = cartService.calculateTotal(id);
         return ResponseEntity.ok(total);
-    }
-
-    @PostMapping("/temp")
-    public ResponseEntity<Cart> saveTempCart(@RequestBody Cart cart) {
-        Cart savedCart = cartService.saveTempCart(cart);
-        return ResponseEntity.ok(savedCart);
-    }
-
-    @GetMapping("/temp")
-    public ResponseEntity<Cart> getTempCart(@RequestParam String userEmail) {
-        Cart tempCart = cartService.getTempCart(userEmail);
-        return tempCart != null ? ResponseEntity.ok(tempCart) : ResponseEntity.notFound().build();
     }
 }

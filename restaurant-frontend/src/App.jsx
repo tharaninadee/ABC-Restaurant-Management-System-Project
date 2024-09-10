@@ -4,32 +4,40 @@ import Navbar from './components/Customer/Navbar/Navbar';
 import Footer from './components/Customer/Footer/Footer';
 import Home from './components/Customer/Home/Home';
 import OrderMenu from './components/Customer/OrderMenu/OrderMenu';
+import CheckoutPage from './components/Customer/OrderMenu/CheckoutPage';
 import Restaurant from './components/Customer/Restaurants/Restaurants';
-
+import Reservation from './components/Customer/Restaurants/Reservation';
+import ContactUs from './components/Customer/Contactus/ContactUs';
 import AdminRoutes from './components/Admin/AdminRoutes'; 
-
+import StaffRoutes from './components/Staff/StaffRoutes'; 
 
 const App = () => {
   const location = useLocation();
   const isAdminRoute = location.pathname.startsWith('/admin');
+  const isStaffRoute = location.pathname.startsWith('/staff');
 
   return (
     <div>
-      {/* Conditionally render Navbar and Footer for non-admin routes */}
-      {!isAdminRoute && <Navbar />}
+      {/* Conditionally render Navbar and Footer for non-admin and non-staff routes */}
+      {!(isAdminRoute || isStaffRoute) && <Navbar />}
       <main>
         <Routes>
           {/* Main app routes */}
           <Route path="/" element={<Home />} />
           <Route path="/order-menu" element={<OrderMenu />} />
+          <Route path="/checkout" element={<CheckoutPage />} />
           <Route path="/restaurants" element={<Restaurant />} />
-         
-          
-           {/* Admin panel routes */}
-           <Route path="/admin/*" element={<AdminRoutes />} />
+          <Route path="/reservations" element={<Reservation />} />
+          <Route path="/contactus" element={<ContactUs />} />
+
+          {/* Admin panel routes */}
+          <Route path="/admin/*" element={<AdminRoutes />} />
+
+          {/* Staff panel routes */}
+          <Route path="/staff/*" element={<StaffRoutes />} />
         </Routes>
       </main>
-      {!isAdminRoute && <Footer />}
+      {!(isAdminRoute || isStaffRoute) && <Footer />}
     </div>
   );
 };

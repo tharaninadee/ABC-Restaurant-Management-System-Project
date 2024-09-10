@@ -1,19 +1,20 @@
 import React from 'react';
-import { Routes, Route } from 'react-router-dom';
-import AdminPanel from './AdminPanel';
-import FacilityLists from './FacilityLists';
-import Category from './Category';
-
+import { Route, Routes } from 'react-router-dom';
+import AdminPanel from './AdminPanel'; // Ensure path is correct
+import Category from './Category'; // Ensure path is correct and the component is named properly
+import OrderManage from './OrderManage';
+import ReservationManage from './ReservationManage';
 
 const AdminRoutes = () => {
   return (
-    <AdminPanel>
-      <Routes>
-        <Route path="addfacility" element={<FacilityLists />} />
+    <Routes>
+      <Route path="/" element={<AdminPanel />}>
         <Route path="category" element={<Category />} />
-
-      </Routes>
-    </AdminPanel>
+        <Route path="orders" element={<OrderManage />} />
+        <Route path="manage-reservation" element={<ReservationManage />} />
+        {/* Add more routes as needed */}
+      </Route>
+    </Routes>
   );
 };
 

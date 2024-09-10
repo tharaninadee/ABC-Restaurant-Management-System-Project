@@ -1,58 +1,121 @@
-// components/ItemCard.jsx
-import React, { useState } from 'react';
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
-import Typography from '@mui/material/Typography';
-import TextField from '@mui/material/TextField';
-import Button from '@mui/material/Button';
+import React, { useState, useEffect } from 'react';
+import './Order.css';
+import axios from 'axios';
 
-const ItemCard = ({ item, onAddToCart }) => {
-    const [quantity, setQuantity] = useState(1);
+const ItemCard = ({ onCartUpdate, cart }) => {
+  const [categories, setCategories] = useState([]);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [filteredCategories, setFilteredCategories] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState(null);
 
-    const handleQuantityChange = (e) => {
-        const value = Math.max(1, parseInt(e.target.value) || 1);
-        setQuantity(value);
-    };
+  useEffect(() => {
+    axios.get('/api/categories')
+      .then(response => {
+        setCategories(response.data);
+        setFilteredCategories(response.data);
+      })
+      .catch(error => console.error('Error fetching data:', error));
+  }, []);
 
-    const handleAddToCart = () => {
-        onAddToCart(item, quantity);
-    };
+  useEffect(() => {
+    if (searchQuery === '') {
+      setFilteredCategories(categories);
+    } else {
+      const filtered = categories
+        .map(category => ({
+          ...category,
+          items: category.items.filter(item =>
+            item.name.toLowerCase().includes(searchQuery.toLowerCase())
+          ),
+        }))
+        .filter(category => category.items.length > 0);
 
-    return (
-        <Card style={{ maxWidth: 345, margin: '16px' }}>
-            <CardMedia
-                component="img"
-                alt={item.name}
-                height="140"
-                image={item.image}
-            />
-            <CardContent>
-                <Typography variant="h6">{item.name}</Typography>
-                <Typography variant="body2" color="text.secondary">
-                    {item.description}
-                </Typography>
-                <Typography variant="h6" color="text.primary">
-                    ${item.price.toFixed(2)}
-                </Typography>
-                <TextField
-                    type="number"
-                    value={quantity}
-                    onChange={handleQuantityChange}
-                    inputProps={{ min: 1 }}
-                    variant="outlined"
-                    margin="normal"
+      setFilteredCategories(filtered);
+    }
+  }, [searchQuery, categories]);
+
+  const handleSearchChange = (event) => {
+    setSearchQuery(event.target.value);
+  };
+
+  const handleCategoryClick = (categoryId) => {
+    setSelectedCategory(categoryId === selectedCategory ? null : categoryId);
+  };
+
+  const handleQuantityChange = (item, action) => {
+    onCartUpdate(item, action);
+  };
+
+  return (
+    <div className="item-card-container">
+      <div className="menu-header">
+        <h1>ABC RESTAURANT</h1>
+        <h2>--- Explore Our Flavorful Menu ---</h2>
+      </div>
+
+      <div className="search-container">
+        <input
+          type="text"
+          value={searchQuery}
+          onChange={handleSearchChange}
+          placeholder="Search items by name"
+          className="search-input"
+        />
+      </div>
+
+      <div className="category-buttons">
+        {categories.map(category => (
+          <button
+            key={category.id}
+            className={`category-button ${selectedCategory === category.id ? 'active' : ''}`}
+            onClick={() => handleCategoryClick(category.id)}
+          >
+            {category.name}
+          </button>
+        ))}
+      </div>
+
+      <div className="items-container">
+        {filteredCategories
+          .filter(category => selectedCategory === null || category.id === selectedCategory)
+          .flatMap(category => category.items)
+          .map(item => {
+            const cartItem = cart.find(cartItem => cartItem.id === item.id);
+            const quantity = cartItem ? cartItem.quantity : 0;
+
+            return (
+              <div key={item.id} className="item-card">
+                <img
+                  src={`data:image/jpeg;base64,${item.image}`}
+                  alt={item.name}
+                  className="item-image"
                 />
-                <Button
-                    variant="contained"
-                    color="primary"
-                    onClick={handleAddToCart}
-                >
-                    Add to Cart
-                </Button>
-            </CardContent>
-        </Card>
-    );
+                <h3 className="item-name">{item.name}</h3>
+                <p className="item-description">{item.description}</p>
+                <p className="item-price">Rs.{item.price.toFixed(2)}</p>
+
+                <div className="item-actions">
+                  <button
+                    onClick={() => handleQuantityChange(item, 'remove')}
+                    disabled={quantity === 0}
+                    className="item-remove-button"
+                  >
+                    -
+                  </button>
+                  <span>{quantity}</span>
+                  <button
+                    onClick={() => handleQuantityChange(item, 'add')}
+                    className="item-add-button"
+                  >
+                    +
+                  </button>
+                </div>
+              </div>
+            );
+          })}
+      </div>
+    </div>
+  );
 };
 
 export default ItemCard;

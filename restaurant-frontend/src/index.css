@@ -9,6 +9,18 @@
   --font-family: 'Poppins', sans-serif; 
 }
 
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+/* Ensure the footer is always at the bottom */
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
 
 body {
   margin: 0;
