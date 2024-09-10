@@ -4,6 +4,7 @@ import AdminPanel from './AdminPanel'; // Ensure path is correct
 import Category from './Category'; // Ensure path is correct and the component is named properly
 import OrderManage from './OrderManage';
 import ReservationManage from './ReservationManage';
+import ViewQueries from './ViewQueries';
 
 const AdminRoutes = () => {
   return (
@@ -12,6 +13,7 @@ const AdminRoutes = () => {
         <Route path="category" element={<Category />} />
         <Route path="orders" element={<OrderManage />} />
         <Route path="manage-reservation" element={<ReservationManage />} />
+        <Route path="view-queries" element={<ViewQueries />} />
         {/* Add more routes as needed */}
       </Route>
     </Routes>

@@ -39,14 +39,35 @@ public class QueryController {
 
     // Add a new query
     @PostMapping
-    public ResponseEntity<Query> addQuery(@RequestBody Query query) {
+    public ResponseEntity<String> addQuery(@RequestBody Query query) {
         // Set createdAt to the current time
         query.setCreatedAt(LocalDateTime.now());
         // Do not set resolvedAt, as it's not relevant at creation
         query.setResolvedAt(null);
 
         Query savedQuery = queryService.addQuery(query);
-        return ResponseEntity.status(HttpStatus.CREATED).body(savedQuery);
+
+        // Send email notification to the staff
+        try {
+            emailService.sendEmail(
+                    "staff@abcrestaurant.com",
+                    "New Query Received from " + query.getCustomerName(),
+                    "Dear Team,\n\n" +
+                            "You have received a new query from:\n" +
+                            "Name: " + query.getCustomerName() + "\n" +
+                            "Email: " + query.getCustomerEmail() + "\n" +
+                            "Phone: " + query.getContactPhone() + "\n\n" +
+                            "Query Content:\n" + query.getContent() + "\n\n" +
+                            "Please respond at your earliest convenience.\n\n" +
+                            "Best regards,\n" +
+                            "ABC Restaurant"
+            );
+        } catch (MessagingException e) {
+            e.printStackTrace(); // Or use a logging framework
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to send notification email.");
+        }
+
+        return ResponseEntity.status(HttpStatus.CREATED).body("Query was sent successfully. Our team will respond to you soon.");
     }
 
     // Update an existing query by ID
@@ -80,7 +101,6 @@ public class QueryController {
                                 "Thank you for reaching out to us."
                 );
             } catch (MessagingException e) {
-                // Log the exception and return a server error response
                 e.printStackTrace(); // Or use a logging framework
                 return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
             }
@@ -96,7 +116,6 @@ public class QueryController {
             queryService.deleteQuery(id);
             return ResponseEntity.noContent().build();
         } catch (Exception e) {
-            // Log the exception and return a server error response
             e.printStackTrace(); // Or use a logging framework
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }

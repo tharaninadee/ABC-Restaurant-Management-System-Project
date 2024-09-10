@@ -5,6 +5,7 @@ import AddBoxIcon from '@mui/icons-material/AddBox';
 import CategoryIcon from '@mui/icons-material/Category';
 import ListAltIcon from '@mui/icons-material/ListAlt'; // Import icon for managing orders
 import EventNoteIcon from '@mui/icons-material/EventNote'; // Import icon for managing reservations
+import QuestionAnswerIcon from '@mui/icons-material/QuestionAnswer'; // Import icon for viewing queries
 
 const drawerWidth = 240;
 
@@ -16,7 +17,8 @@ const AdminPanel = () => {
     { text: 'Add Facility', link: '/admin/addfacility', icon: <AddBoxIcon /> },
     { text: 'Add Category', link: '/admin/category', icon: <CategoryIcon /> },
     { text: 'Manage Orders', link: '/admin/orders', icon: <ListAltIcon /> },
-    { text: 'Manage Reservations', link: '/admin/manage-reservation', icon: <EventNoteIcon /> } // Updated Manage Reservations menu item
+    { text: 'Manage Reservations', link: '/admin/manage-reservation', icon: <EventNoteIcon /> },
+    { text: 'View Queries', link: '/admin/view-queries', icon: <QuestionAnswerIcon /> } // Added View Queries menu item
   ];
 
   const isActive = (path) => location.pathname === path;
