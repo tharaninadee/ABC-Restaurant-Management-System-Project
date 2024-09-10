@@ -1,0 +1,253 @@
+/* Container for the item cards */
+.item-card-container {
+  padding: 20px;
+}
+
+/* Header for the menu section */
+.menu-header {
+  text-align: center;
+  margin: 20px 0;
+  color: #333;
+}
+
+.menu-header h1 {
+  font-size: 2.5rem;
+  margin-bottom: 10px;
+}
+
+.menu-header h2 {
+  font-size: 1.2rem;
+  color: #777;
+}
+
+/* Search input styling */
+.search-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.search-input {
+  width: 80%; /* Adjust width for better responsiveness */
+  max-width: 600px; /* Limit maximum width */
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* Category buttons styling */
+.category-buttons {
+  display: flex;
+  flex-wrap: wrap; /* Allow buttons to wrap on smaller screens */
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.category-button {
+  margin: 5px; /* Reduced margin for smaller screens */
+  padding: 10px 20px;
+  border: none;
+  background-color: #643522;
+  color: white;
+  cursor: pointer;
+  border-radius: 4px;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
+
+.category-button.active {
+  background-color: #8c6d5c;
+}
+
+/* Container for items */
+.items-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+}
+
+/* Styling for individual item cards */
+.item-card {
+  width: calc(25% - 20px);
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 15px;
+  text-align: center;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease;
+}
+
+.item-card:hover {
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Styling for item images */
+.item-image {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+/* Actions within item cards */
+.item-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.item-add-button, .item-remove-button {
+  padding: 8px 15px;
+  margin: 0 5px;
+  border: none;
+  background-color: #007bff;
+  color: white;
+  cursor: pointer;
+  border-radius: 4px;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
+
+.item-add-button:hover, .item-remove-button:hover {
+  background-color: #0056b3;
+}
+
+/* Cart sidebar styling */
+.cart-sidebar {
+  margin-top: 20px;
+}
+
+/* Cart items styling */
+.cart-items {
+  margin-bottom: 20px;
+}
+
+/* Individual cart item styling */
+.cart-item {
+  margin-bottom: 15px;
+}
+
+/* Remove button in cart items */
+.cart-remove-button {
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+  border-radius: 4px;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
+
+.cart-remove-button:hover {
+  background-color: #c82333;
+}
+
+/* Checkout button styling */
+.checkout-button {
+  padding: 10px 20px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 4px;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
+
+.checkout-button:hover {
+  background-color: #218838;
+}
+
+/* Place order styling */
+.place-order {
+  display: flex;
+  flex-wrap: wrap; /* Allow wrapping for smaller screens */
+  gap: 20px; /* Reduced gap */
+  margin-top: 50px;
+}
+
+.place-order-paper {
+  padding: 24px;
+  flex: 1; /* Allow flexible width */
+}
+
+.place-order-left {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  flex: 1; /* Allow flexible width */
+}
+
+.title {
+  font-size: 2rem; /* Adjust font size for smaller screens */
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+
+.place-order-left input,
+.place-order-left textarea {
+  margin-bottom: 15px;
+  padding: 10px;
+  border: 1px solid #c5c5c5;
+  border-radius: 4px;
+  outline-color: var(--primary-color);
+}
+
+.place-order-left .multi-fields {
+  display: flex;
+  flex-wrap: wrap; /* Allow wrapping on smaller screens */
+  gap: 10px;
+}
+
+.place-order-right {
+  flex: 1;
+}
+
+/* Cart total styling */
+.cart-total {
+  padding: 16px;
+}
+
+.cart-total button {
+  margin-top: 30px;
+}
+
+/* Media Queries */
+@media (max-width: 1200px) {
+  .item-card {
+    width: calc(33.33% - 20px); /* Three items per row */
+  }
+}
+
+@media (max-width: 900px) {
+  .item-card {
+    width: calc(50% - 20px); /* Two items per row */
+  }
+
+  .search-input {
+    width: 90%;
+  }
+
+  .place-order {
+    gap: 30px;
+  }
+}
+
+@media (max-width: 750px) {
+  .item-card {
+    width: 100%; /* One item per row */
+  }
+
+  .place-order {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .place-order-left .multi-fields {
+    flex-direction: column; /* Stack fields vertically on small screens */
+  }
+}
