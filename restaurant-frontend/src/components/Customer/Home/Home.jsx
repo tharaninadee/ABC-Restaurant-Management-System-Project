@@ -186,7 +186,7 @@ const Home = () => {
             <p>Established in 2024, our restaurant has been dedicated to bringing exceptional dining experiences to our guests. We pride ourselves on providing excellent service and a warm, inviting atmosphere. </p>
             <div className="button-container">
               <a href="#order" className="button">Order Now</a>
-              <a href="#restaurants" className="button">View Our Restaurants</a>
+              <a href="./reservations" className="button">View Our Restaurants</a>
             </div>
           </div>
         </div>

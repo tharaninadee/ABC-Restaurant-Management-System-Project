@@ -3,14 +3,14 @@
   padding: 40px 0;
   background-color: var(--primary-color); /* Dark background color */
   color: #fff;
-  position: relative;
-  flex-direction: column;
-  align-items: center;
   width: 100%;
+  box-sizing: border-box; /* Ensure padding is included in width */
 }
 
 .footer-logo img {
   max-width: 180px;
+  width: 100%; /* Make the image responsive */
+  height: auto;
   margin-bottom: 15px;
 }
 
@@ -21,11 +21,9 @@
   color: #ccc;
 }
 
-
 .footer-links-container {
   display: flex;
   flex-direction: column;
-  align-items: flex-start; /* Align links to the left */
   gap: 10px;
 }
 
@@ -42,13 +40,12 @@
 
 .footer-contact {
   font-size: 0.9rem;
-  margin-bottom: 20px;
 }
 
 .footer-heading {
   margin-bottom: 15px;
   font-weight: bold;
-  color: #f8b400; /* Primary color for headings */
+  color: var(--secondary-color); /* Use secondary color for headings */
 }
 
 .footer-contact p,
@@ -56,23 +53,8 @@
   margin: 5px 0;
 }
 
-@media (max-width: 768px) {
-  .footer {
-    text-align: center;
-  }
-  .footer-logo img {
-    margin: 0 auto 15px auto;
-  }
-  .footer-links-container,
-  .footer-contact, .footer-payment {
-    align-items: center;
-  }
-}
-
-
 .footer-payment {
   margin-top: 20px; /* Space between contact and payment sections */
-  text-align: left;
 }
 
 .payhere-logo {
@@ -85,4 +67,27 @@
   margin-top: 20px;
   font-size: 14px;
   text-align: center;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .footer {
+    text-align: center;
+  }
+
+  .footer-logo img {
+    max-width: 150px; /* Adjust logo size for smaller screens */
+  }
+
+  .footer-description {
+    font-size: 0.8rem; /* Smaller font size for better readability */
+  }
+
+  .footer-links a {
+    font-size: 0.8rem; /* Adjust font size for links */
+  }
+
+  .footer-links-container {
+    display: block; /* Stack links vertically */
+  }
 }

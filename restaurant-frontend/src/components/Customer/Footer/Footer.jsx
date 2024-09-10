@@ -5,8 +5,8 @@ import './Footer.css';
 const Footer = () => {
   return (
     <footer className="footer">
-      <Container>
-        <Grid container spacing={2} justifyContent="space-between">
+      <Container maxWidth={false} disableGutters>
+        <Grid container spacing={3} justifyContent="center">
           {/* Logo and Description */}
           <Grid item xs={12} md={4} className="footer-logo">
             <img src="/src/assets/logo2.png" alt="Restaurant Logo" />
@@ -28,26 +28,23 @@ const Footer = () => {
             </Box>
           </Grid>
 
-         {/* Contact Information */}
-        
-         <Grid item xs={12} md={4} className="footer-contact">
-    <Typography variant="h6" className="footer-heading">Contact Us</Typography>
-    <Typography variant="body2">123 Main Street, Colombo, Sri Lanka</Typography>
-    <Typography variant="body2">Phone: +94 11 2345678</Typography>
-    <Typography variant="body2">Email: info@abcrestaurant.com</Typography>
-    
-    <div className="footer-payment">
-      <Typography variant="h6" className="footer-heading">Payment Method:</Typography>
-      <img src="src/assets/Payhere-Logo.png" alt="PayHere" className="payhere-logo" />
-    </div>
-  </Grid>
-     
-  <Grid item xs={12} className="footer-copyright">
-    <Typography variant="body2">© 2024 ABC Restaurant. All rights reserved.</Typography>
-  </Grid>
-</Grid>
-
-        
+          {/* Contact Information */}
+          <Grid item xs={12} md={4} className="footer-contact">
+            <Typography variant="h6" className="footer-heading">Contact Us</Typography>
+            <Typography variant="body2">123 Main Street, Colombo, Sri Lanka</Typography>
+            <Typography variant="body2">Phone: +94 11 2345678</Typography>
+            <Typography variant="body2">Email: info@abcrestaurant.com</Typography>
+            
+            <div className="footer-payment">
+              <Typography variant="h6" className="footer-heading">Payment Method:</Typography>
+              <img src="/src/assets/Payhere-Logo.png" alt="PayHere" className="payhere-logo" />
+            </div>
+          </Grid>
+          
+          <Grid item xs={12} className="footer-copyright">
+            <Typography variant="body2">© 2024 ABC Restaurant. All rights reserved.</Typography>
+          </Grid>
+        </Grid>
       </Container>
     </footer>
   );

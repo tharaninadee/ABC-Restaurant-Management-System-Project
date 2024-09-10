@@ -1,15 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import { AppBar, Toolbar, IconButton, Button, Drawer, List, ListItem, ListItemText, Box, Badge } from '@mui/material';
+import { AppBar, Toolbar, IconButton, Button, Drawer, List, ListItem, ListItemText, Box, Badge, Container, Grid } from '@mui/material';
 import { Menu as MenuIcon, Close as CloseIcon, ShoppingCart as ShoppingCartIcon, AccountCircle as AccountCircleIcon } from '@mui/icons-material';
 import { Link, useLocation } from 'react-router-dom';
-import CartSidebar from '../OrderMenu/CartSideBar'; // Ensure the correct import path
+import CartSidebar from '../OrderMenu/CartSidebar'; // Ensure the correct import path
+import ItemCard from '../OrderMenu/ItemCard'; // Ensure the correct import path
 import './Navbar.css';
 
 const Navbar = () => {
   const [drawerOpen, setDrawerOpen] = useState(false);
-  const [cartOpen, setCartOpen] = useState(false); // Add state for cart sidebar
+  const [cartOpen, setCartOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [cartItems, setCartItems] = useState([]); // State to track cart items
+  const [cartItems, setCartItems] = useState([]);
   const location = useLocation();
 
   useEffect(() => {
@@ -24,7 +25,6 @@ const Navbar = () => {
   }, []);
 
   useEffect(() => {
-    // Fetch cart items from localStorage or API
     const storedCartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
     setCartItems(storedCartItems);
   }, []);
@@ -33,8 +33,32 @@ const Navbar = () => {
     setDrawerOpen(!drawerOpen);
   };
 
-  const toggleCart = () => {
+  const toggleCartSidebar = () => {
     setCartOpen(!cartOpen);
+  };
+
+  const updateCart = (item, action) => {
+    setCartItems(prevCart => {
+      const updatedCart = [...prevCart];
+      const index = updatedCart.findIndex(cartItem => cartItem.id === item.id);
+
+      if (action === 'add') {
+        if (index > -1) {
+          updatedCart[index].quantity = (updatedCart[index].quantity || 0) + 1;
+        } else {
+          updatedCart.push({ ...item, quantity: 1 });
+        }
+      } else if (action === 'remove' && index > -1) {
+        if (updatedCart[index].quantity > 1) {
+          updatedCart[index].quantity -= 1;
+        } else {
+          updatedCart.splice(index, 1);
+        }
+      }
+
+      localStorage.setItem('cartItems', JSON.stringify(updatedCart));
+      return updatedCart;
+    });
   };
 
   const menuItems = [
@@ -42,7 +66,7 @@ const Navbar = () => {
     { text: 'Order Menu', link: '/order-menu' },
     { text: 'Restaurants', link: '/restaurants' },
     { text: 'Gallery', link: '/gallery' },
-    { text: 'Contact Us', link: '/contact-us' },
+    { text: 'Contact Us', link: '/contactus' },
   ];
 
   const isActive = (path) => location.pathname === path;
@@ -83,11 +107,10 @@ const Navbar = () => {
           </Box>
           {/* Icons (Right) */}
           <Box sx={{ display: 'flex', gap: '20px', alignItems: 'center' }}>
-            <IconButton color="inherit" onClick={toggleCart}>
+            <IconButton color="inherit" onClick={toggleCartSidebar}>
               <Badge
-                variant="dot"
+                badgeContent={cartItems.reduce((total, item) => total + item.quantity, 0)}
                 color="secondary"
-                invisible={cartItems.length === 0}
               >
                 <ShoppingCartIcon />
               </Badge>
@@ -100,12 +123,12 @@ const Navbar = () => {
       </AppBar>
 
       {/* Cart Sidebar Drawer */}
-      <Drawer anchor="right" open={cartOpen} onClose={toggleCart}>
+      <Drawer anchor="right" open={cartOpen} onClose={toggleCartSidebar}>
         <div style={{ width: 300 }}>
-          <IconButton onClick={toggleCart} sx={{ margin: 1 }}>
+          <IconButton onClick={toggleCartSidebar} sx={{ margin: 1 }}>
             <CloseIcon />
           </IconButton>
-          <CartSidebar isOpen={cartOpen} onClose={toggleCart} /> {/* Pass props to CartSidebar */}
+          <CartSidebar isOpen={cartOpen} onClose={toggleCartSidebar} cart={cartItems} updateCart={updateCart} />
         </div>
       </Drawer>
 
@@ -128,7 +151,7 @@ const Navbar = () => {
                 <ListItemText primary={item.text} />
               </ListItem>
             ))}
-            <ListItem button onClick={toggleCart}>
+            <ListItem button onClick={toggleCartSidebar}>
               <ListItemText primary={<ShoppingCartIcon />} />
             </ListItem>
             <ListItem button component={Link} to="/login">
@@ -137,6 +160,9 @@ const Navbar = () => {
           </List>
         </div>
       </Drawer>
+
+      {/* Main Content */}
+     
     </>
   );
 };
