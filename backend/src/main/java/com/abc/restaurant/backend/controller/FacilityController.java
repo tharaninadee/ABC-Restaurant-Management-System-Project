@@ -7,51 +7,50 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
+import java.util.Optional;
 
 @RestController
-@RequestMapping("/facility")
+@RequestMapping("/api/facilities")
 public class FacilityController {
+
     @Autowired
     private FacilityService facilityService;
 
-    @GetMapping
-    public List<Facility> getAllFacilities() {
-        return facilityService.getAllFacilities();
+    @PostMapping
+    public ResponseEntity<Facility> createFacility(@RequestBody Facility facility) {
+        Facility createdFacility = facilityService.addFacility(facility);
+        return ResponseEntity.ok(createdFacility);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Facility> getFacilityById(@PathVariable String id) {
-        return facilityService.getFacilityById(id)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+        Optional<Facility> facility = facilityService.getFacilityById(id);
+        return facility.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    @PostMapping
-    public Facility addFacility(@RequestBody Facility facility) {
-        return facilityService.addFacility(facility);
+    @GetMapping
+    public ResponseEntity<List<Facility>> getAllFacilities() {
+        List<Facility> facilities = facilityService.getAllFacilities();
+        if (facilities.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        } else {
+            return ResponseEntity.ok(facilities);
+        }
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Facility> updateFacility(@PathVariable String id, @RequestBody Facility facilityDetails) {
-        try {
-            return ResponseEntity.ok(facilityService.updateFacility(id, facilityDetails));
-        } catch (IllegalArgumentException e) {
-            return ResponseEntity.badRequest().body(null); // Handle invalid ObjectId format
+    public ResponseEntity<Facility> updateFacility(@PathVariable String id, @RequestBody Facility updatedFacility) {
+        Facility facility = facilityService.updateFacility(id, updatedFacility);
+        if (facility != null) {
+            return ResponseEntity.ok(facility);
+        } else {
+            return ResponseEntity.notFound().build();
         }
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteFacility(@PathVariable String id) {
-        try {
-            facilityService.deleteFacility(id);
-            return ResponseEntity.ok().body("Facility deleted successfully");
-        } catch (IllegalArgumentException e) {
-            return ResponseEntity.badRequest().body("Invalid ObjectId format");
-        } catch (Exception e) {
-            return ResponseEntity.status(500).body("Error deleting facility: " + e.getMessage());
-        }
+    public ResponseEntity<Void> deleteFacility(@PathVariable String id) {
+        facilityService.deleteFacility(id);
+        return ResponseEntity.noContent().build();
     }
 }
-
-

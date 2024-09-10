@@ -1,27 +1,36 @@
 package com.abc.restaurant.backend.model;
 
-import lombok.Data;
-import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document(collection = "facility")
+@Document(collection = "facilities")
 public class Facility {
+
     @Id
-    private String id;
+    private String id; // MongoDB ID
     private String heading;
     private String description;
-    private String image; // Ensure this is defined as byte[]
-    private int capacity; // New field added
+    private String image;
+    private String startTime;
+    private String endTime;
+    private int capacity;
 
-    public Facility(String id, String heading, String description, String image, int capacity) {
+    // Default constructor
+    public Facility() {
+    }
+
+    // Constructor with parameters
+    public Facility(String id, String heading, String description, String image, String startTime, String endTime, int capacity) {
         this.id = id;
         this.heading = heading;
         this.description = description;
         this.image = image;
-        this.capacity = capacity; // Initialize new field
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.capacity = capacity;
     }
 
+    // Getters and setters
     public String getId() {
         return id;
     }
@@ -52,6 +61,22 @@ public class Facility {
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+    public String getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(String startTime) {
+        this.startTime = startTime;
+    }
+
+    public String getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(String endTime) {
+        this.endTime = endTime;
     }
 
     public int getCapacity() {

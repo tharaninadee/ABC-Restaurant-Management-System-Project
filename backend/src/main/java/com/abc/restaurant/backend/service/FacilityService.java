@@ -10,29 +10,29 @@ import java.util.Optional;
 
 @Service
 public class FacilityService {
+
     @Autowired
     private FacilityRepository facilityRepository;
 
-    public List<Facility> getAllFacilities() {
-        return facilityRepository.findAll();
+    public Facility addFacility(Facility facility) {
+        return facilityRepository.save(facility);
     }
 
     public Optional<Facility> getFacilityById(String id) {
         return facilityRepository.findById(id);
     }
 
-    public Facility addFacility(Facility facility) {
-        return facilityRepository.save(facility);
+    public List<Facility> getAllFacilities() {
+        return facilityRepository.findAll();
     }
 
     public Facility updateFacility(String id, Facility facilityDetails) {
-        Facility facility = facilityRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Invalid facility Id: " + id));
-        facility.setHeading(facilityDetails.getHeading());
-        facility.setDescription(facilityDetails.getDescription());
-        facility.setImage(facilityDetails.getImage());
-        facility.setCapacity(facilityDetails.getCapacity());
-        return facilityRepository.save(facility);
+        if (facilityRepository.existsById(id)) {
+            facilityDetails.setId(id);
+            return facilityRepository.save(facilityDetails);
+        } else {
+            return null;
+        }
     }
 
     public void deleteFacility(String id) {

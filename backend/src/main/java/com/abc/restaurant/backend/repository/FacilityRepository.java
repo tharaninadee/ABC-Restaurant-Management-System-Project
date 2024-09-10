@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface FacilityRepository extends MongoRepository<Facility, String> {
+    // Custom query methods can be defined here if needed
 }
