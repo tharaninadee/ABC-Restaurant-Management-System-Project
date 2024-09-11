@@ -4,105 +4,22 @@ import 'slick-carousel/slick/slick.css'; // Import the slick carousel CSS
 import 'slick-carousel/slick/slick-theme.css'; // Import the slick carousel theme CSS
 import { motion, useAnimation } from 'framer-motion';
 import './Home.css'; // Ensure this path is correct
-
-const carouselImages = [
-  { id: 1, imageURL: '/src/assets/home1.jpg', title: 'Image 1' },
-  { id: 2, imageURL: '/src/assets/home2.jpg', title: 'Image 2' },
-  { id: 3, imageURL: '/src/assets/home3.jpg', title: 'Image 3' },
-];
-
-const categories = [
-  { title: 'Appetizers', image: '/src/assets/Hfood1.jpg' },
-  { title: 'Mains', image: '/src/assets/Hfood2.jpg' },
-  { title: 'Chinese', image: '/src/assets/Hfood3.jpg' },
-  { title: 'Indian', image: '/src/assets/Hfood4.jpg' },
-  { title: 'Italian', image: '/src/assets/Hfood5.jpg' },
-  { title: 'Desserts', image: '/src/assets/Hfood6.jpg' },
-  { title: 'Short Eats', image: '/src/assets/Hfood7.jpg' },
-  { title: 'Cakes', image: '/src/assets/Hfood8.jpg' },
-];
-
-const carouselSettings = {
-  dots: true,
-  infinite: true,
-  speed: 500,
-  slidesToShow: 1,
-  slidesToScroll: 1,
-  autoplay: true,
-  autoplaySpeed: 3000, // Adjust autoplay speed as needed
-};
-
-const restaurants = [
-  {
-    name: "ABC Dine-In",
-    image: "/src/assets/rest1.jpg",
-    description: "Experience fine dining in the heart of Colombo with our exquisite dishes.",
-  },
-  {
-    name: "Luxe Lounge",
-    image: "/src/assets/rest2.jpg",
-    description: "Savor the flavors of Sri Lanka with a modern twist in our Kandy branch.",
-  },
-  {
-    name: "Ocean's Delight",
-    image: "/src/assets/rest3.jpg",
-    description: "Enjoy fresh seafood with a stunning ocean view, a perfect escape for food lovers.",
-  },
-];
-
-
-const FAQSection = () => {
-  const [visibleFaqIndex, setVisibleFaqIndex] = useState(null);
-
-  const faqs = [
-    {
-      question: "What is the standard delivery time?",
-      answer: "- Standard delivery time may vary depending on the location.",
-    },
-    {
-      question: "How can I cancel an online reservation?",
-      answer: "- You must inform the restaurant prior to your reservation time to cancel.",
-    },
-    {
-      question: "Is online payment available?",
-      answer: "- Yes, online payment is available through PayHere.",
-    },
-    {
-      question: "Do you operate on Poya days and other holidays?",
-      answer: "- Yes, we operate on Poya days and other holidays.",
-    },
-  ];
-
-  const toggleAnswer = (index) => {
-    setVisibleFaqIndex(visibleFaqIndex === index ? null : index);
-  };
-
-  return (
-    <div className="faq-section">
-      <div className="faq-content-container">
-        <div className="faq-image">
-          <img src="/src/assets/faq.jpg" alt="FAQ" />
-        </div>
-        <div className="faq-content">
-          <h2 className="faq-title">Frequently Asked Questions</h2>
-          <div className="faqs">
-            {faqs.map((faq, index) => (
-              <div key={index} className="faq-item" onClick={() => toggleAnswer(index)}>
-                <div className="faq-question">{faq.question}</div>
-                {visibleFaqIndex === index && <div className="faq-answer">{faq.answer}</div>}
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-};
+import Feature from './Feature'; 
+import OfferPopup from './Offerpop';
 
 const Home = () => {
+  const [isPopupOpen, setIsPopupOpen] = useState(true); // Open the popup by default
   const controls = useAnimation();
   const [isInView, setIsInView] = useState(false);
 
+  // Optionally, use an effect to close the popup after a certain time
+  useEffect(() => {
+    // Close the popup after 10 seconds
+    const timer = setTimeout(() => setIsPopupOpen(false), 10000);
+    return () => clearTimeout(timer); // Clean up the timer
+  }, []);
+
+  // Handle scroll event to trigger animation
   const handleScroll = () => {
     const section = document.querySelector('.about-container');
     const sectionTop = section.getBoundingClientRect().top;
@@ -127,6 +44,99 @@ const Home = () => {
       controls.start({ opacity: 0, y: 50 });
     }
   }, [isInView, controls]);
+
+  const carouselImages = [
+    { id: 1, imageURL: '/src/assets/home1.jpg', title: 'Image 1' },
+    { id: 2, imageURL: '/src/assets/home2.jpg', title: 'Image 2' },
+    { id: 3, imageURL: '/src/assets/home3.jpg', title: 'Image 3' },
+  ];
+
+  const categories = [
+    { title: 'Appetizers', image: '/src/assets/Hfood1.jpg' },
+    { title: 'Mains', image: '/src/assets/Hfood2.jpg' },
+    { title: 'Chinese', image: '/src/assets/Hfood3.jpg' },
+    { title: 'Indian', image: '/src/assets/Hfood4.jpg' },
+    { title: 'Italian', image: '/src/assets/Hfood5.jpg' },
+    { title: 'Desserts', image: '/src/assets/Hfood6.jpg' },
+    { title: 'Sri Lankan', image: '/src/assets/Hfood7.jpg' },
+    { title: 'Cakes', image: '/src/assets/Hfood8.jpg' },
+  ];
+
+  const carouselSettings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 3000, // Adjust autoplay speed as needed
+  };
+
+  const restaurants = [
+    {
+      name: "ABC Dine-In",
+      image: "/src/assets/rest1.jpg",
+      description: "Experience fine dining in the heart of Colombo with our exquisite dishes.",
+    },
+    {
+      name: "Luxe Lounge",
+      image: "/src/assets/rest2.jpg",
+      description: "Savor the flavors of Sri Lanka with a modern twist in our Kandy branch.",
+    },
+    {
+      name: "Ocean's Delight",
+      image: "/src/assets/rest3.jpg",
+      description: "Enjoy fresh seafood with a stunning ocean view, a perfect escape for food lovers.",
+    },
+  ];
+
+  const FAQSection = () => {
+    const [visibleFaqIndex, setVisibleFaqIndex] = useState(null);
+
+    const faqs = [
+      {
+        question: "What is the standard delivery time?",
+        answer: "- Standard delivery time may vary depending on the location.",
+      },
+      {
+        question: "How can I cancel an online reservation?",
+        answer: "- You must inform the restaurant prior to your reservation time to cancel.",
+      },
+      {
+        question: "Is online payment available?",
+        answer: "- Yes, online payment is available through PayHere.",
+      },
+      {
+        question: "Do you operate on Poya days and other holidays?",
+        answer: "- Yes, we operate on Poya days and other holidays.",
+      },
+    ];
+
+    const toggleAnswer = (index) => {
+      setVisibleFaqIndex(visibleFaqIndex === index ? null : index);
+    };
+
+    return (
+      <div className="faq-section">
+        <div className="faq-content-container">
+          <div className="faq-image">
+            <img src="/src/assets/faq.jpg" alt="FAQ" />
+          </div>
+          <div className="faq-content">
+            <h2 className="faq-title">Frequently Asked Questions</h2>
+            <div className="faqs">
+              {faqs.map((faq, index) => (
+                <div key={index} className="faq-item" onClick={() => toggleAnswer(index)}>
+                  <div className="faq-question">{faq.question}</div>
+                  {visibleFaqIndex === index && <div className="faq-answer">{faq.answer}</div>}
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  };
 
   return (
     <div>
@@ -183,34 +193,20 @@ const Home = () => {
           <div className="about-text">
             <h2>About Us</h2>
             <p>Our restaurant offers a unique dining experience with delicious dishes crafted from the finest ingredients. We are passionate about delivering an authentic taste of Sri Lanka with a modern twist.</p>
-            <p>Established in 2024, our restaurant has been dedicated to bringing exceptional dining experiences to our guests. We pride ourselves on providing excellent service and a warm, inviting atmosphere. </p>
+            <p>Established in 2024, our restaurant has been dedicated to bringing exceptional dining experiences to our guests. We pride ourselves on providing excellent service and a warm, inviting atmosphere.</p>
             <div className="button-container">
               <a href="#order" className="button">Order Now</a>
-              <a href="./reservations" className="button">View Our Restaurants</a>
+              <a href="./reservations" className="button">Make Reservation</a>
             </div>
           </div>
         </div>
       </div>
 
-    
       {/* Restaurant Section */}
       <div className="restaurant-section">
-      <h2 className="restaurant-title">Explore Our Restaurants</h2>
-        <div className="restaurant-cards">
-        {restaurants.map((restaurant, index) => (
-        <div key={index} className="restaurant-card">
-        <img src={restaurant.image} alt={restaurant.name} />
-        <div className="restaurant-card-content">
-          <h3 className="restaurant-card-title">{restaurant.name}</h3>
-          <p className="restaurant-card-description">{restaurant.description}</p>
-          <a href="/restaurants" className="view-more"> Learn More</a>
-        </div>
-        </div>
-        ))}
-       </div>
-       
+        <h2 className="restaurant-title">Explore Our Features</h2>
+        <Feature />
       </div>
- 
 
       {/* Food Categories Section */}
       <div className="food-categories-container">

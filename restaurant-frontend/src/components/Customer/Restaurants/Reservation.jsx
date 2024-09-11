@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import { TextField, MenuItem, Button, Grid, Typography, FormControl, InputLabel, Select, FormHelperText } from '@mui/material';
+import { TextField, MenuItem, Button, Grid, Typography, FormControl, InputLabel, Select, FormHelperText, Box } from '@mui/material';
 import { useNavigate } from 'react-router-dom'; // For navigation after submission
 import axios from 'axios';
+import backgroundImage from '/src/assets/home1.jpg';// Update with the correct path
 
 const TIME_SLOTS = [
   { label: '3pm - 5pm', value: '15:00-17:00' },
   { label: '5pm - 7pm', value: '17:00-19:00' }
 ];
 
-const ReservationForm = () => {
+const Reservation = () => {
   const [restaurantName, setRestaurantName] = useState('');
   const [facilityHeading, setFacility] = useState(''); // Change to facilityHeading
   const [dateTime, setDateTime] = useState('');
@@ -161,134 +162,157 @@ const ReservationForm = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <Typography variant="h4" gutterBottom>
-        Reservation Form
-      </Typography>
-      <Grid container spacing={2}>
-        <Grid item xs={12} sm={6}>
-          <FormControl fullWidth error={Boolean(errors.restaurantName)}>
-            <InputLabel>Restaurant</InputLabel>
-            <Select
-              value={restaurantName}
-              onChange={(e) => setRestaurantName(e.target.value)}
-              label="Restaurant"
-            >
-              {restaurants.map((r) => (
-                <MenuItem key={r.id} value={r.name}>
-                  {r.name}
-                </MenuItem>
-              ))}
-            </Select>
-            {errors.restaurantName && <FormHelperText>{errors.restaurantName}</FormHelperText>}
-          </FormControl>
+    <div>
+      {/* Header */}
+      <Box
+        sx={{
+          height: 300,
+          backgroundImage: `url(${backgroundImage})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          color: 'white',
+          mb: 4, // Margin bottom to add space between header and content
+          textAlign: 'center'
+        }}
+      >
+        <Typography variant="h3" sx={{ fontWeight: 'bold', mb: 2 }}>
+          Make Reservation
+        </Typography>
+      </Box>
+
+      {/* Reservation Form */}
+      <form onSubmit={handleSubmit}>
+        <Typography variant="h4" gutterBottom>
+          Reservation Form
+        </Typography>
+        <Grid container spacing={2}>
+          <Grid item xs={12} sm={6}>
+            <FormControl fullWidth error={Boolean(errors.restaurantName)}>
+              <InputLabel>Restaurant</InputLabel>
+              <Select
+                value={restaurantName}
+                onChange={(e) => setRestaurantName(e.target.value)}
+                label="Restaurant"
+              >
+                {restaurants.map((r) => (
+                  <MenuItem key={r.id} value={r.name}>
+                    {r.name}
+                  </MenuItem>
+                ))}
+              </Select>
+              {errors.restaurantName && <FormHelperText>{errors.restaurantName}</FormHelperText>}
+            </FormControl>
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <FormControl fullWidth error={Boolean(errors.facilityHeading)}> {/* Adjust to facilityHeading */}
+              <InputLabel>Facility</InputLabel>
+              <Select
+                value={facilityHeading}
+                onChange={(e) => setFacility(e.target.value)}
+                label="Facility"
+              >
+                {facilities.map((f) => (
+                  <MenuItem key={f.id} value={f.heading}>
+                    {f.heading}
+                  </MenuItem>
+                ))}
+              </Select>
+              {errors.facilityHeading && <FormHelperText>{errors.facilityHeading}</FormHelperText>}  {/* Adjust to facilityHeading */}
+            </FormControl>
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <TextField
+              fullWidth
+              label="Date and Time"
+              type="datetime-local"
+              InputLabelProps={{ shrink: true }}
+              value={dateTime}
+              onChange={(e) => setDateTime(e.target.value)}
+              error={Boolean(errors.dateTime)}
+              helperText={errors.dateTime}
+            />
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <FormControl fullWidth error={Boolean(errors.timeSlot)}>
+              <InputLabel>Time Slot</InputLabel>
+              <Select
+                value={timeSlot}
+                onChange={(e) => setTimeSlot(e.target.value)}
+                label="Time Slot"
+              >
+                {TIME_SLOTS.map((slot) => (
+                  <MenuItem key={slot.value} value={slot.value}>
+                    {slot.label}
+                  </MenuItem>
+                ))}
+              </Select>
+              {errors.timeSlot && <FormHelperText>{errors.timeSlot}</FormHelperText>}
+            </FormControl>
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <TextField
+              fullWidth
+              label="Number of Guests"
+              type="number"
+              value={guestsNumber}
+              onChange={(e) => setGuestsNumber(e.target.value)}
+              error={Boolean(errors.guestsNumber)}
+              helperText={errors.guestsNumber}
+            />
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <TextField
+              fullWidth
+              label="Customer Name"
+              value={customerName}
+              onChange={(e) => setCustomerName(e.target.value)}
+              error={Boolean(errors.customerName)}
+              helperText={errors.customerName}
+            />
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <TextField
+              fullWidth
+              label="Customer Email"
+              type="email"
+              value={customerEmail}
+              onChange={(e) => setCustomerEmail(e.target.value)}
+              error={Boolean(errors.customerEmail)}
+              helperText={errors.customerEmail}
+            />
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <TextField
+              fullWidth
+              label="Contact Phone"
+              value={contactPhone}
+              onChange={(e) => setContactPhone(e.target.value)}
+              error={Boolean(errors.contactPhone)}
+              helperText={errors.contactPhone}
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+              fullWidth
+              label="Special Requests"
+              multiline
+              rows={4}
+              value={specialRequests}
+              onChange={(e) => setSpecialRequests(e.target.value)}
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <Button type="submit" variant="contained" color="primary">
+              Confirm Reservation
+            </Button>
+          </Grid>
         </Grid>
-        <Grid item xs={12} sm={6}>
-          <FormControl fullWidth error={Boolean(errors.facilityHeading)}> {/* Adjust to facilityHeading */}
-            <InputLabel>Facility</InputLabel>
-            <Select
-              value={facilityHeading}
-              onChange={(e) => setFacility(e.target.value)}
-              label="Facility"
-            >
-              {facilities.map((f) => (
-                <MenuItem key={f.id} value={f.heading}>
-                  {f.heading}
-                </MenuItem>
-              ))}
-            </Select>
-            {errors.facilityHeading && <FormHelperText>{errors.facilityHeading}</FormHelperText>}  {/* Adjust to facilityHeading */}
-          </FormControl>
-        </Grid>
-        <Grid item xs={12} sm={6}>
-          <TextField
-            fullWidth
-            label="Date and Time"
-            type="datetime-local"
-            InputLabelProps={{ shrink: true }}
-            value={dateTime}
-            onChange={(e) => setDateTime(e.target.value)}
-            error={Boolean(errors.dateTime)}
-            helperText={errors.dateTime}
-          />
-        </Grid>
-        <Grid item xs={12} sm={6}>
-          <FormControl fullWidth error={Boolean(errors.timeSlot)}>
-            <InputLabel>Time Slot</InputLabel>
-            <Select
-              value={timeSlot}
-              onChange={(e) => setTimeSlot(e.target.value)}
-              label="Time Slot"
-            >
-              {TIME_SLOTS.map((slot) => (
-                <MenuItem key={slot.value} value={slot.value}>
-                  {slot.label}
-                </MenuItem>
-              ))}
-            </Select>
-            {errors.timeSlot && <FormHelperText>{errors.timeSlot}</FormHelperText>}
-          </FormControl>
-        </Grid>
-        <Grid item xs={12} sm={6}>
-          <TextField
-            fullWidth
-            label="Number of Guests"
-            type="number"
-            value={guestsNumber}
-            onChange={(e) => setGuestsNumber(e.target.value)}
-            error={Boolean(errors.guestsNumber)}
-            helperText={errors.guestsNumber}
-          />
-        </Grid>
-        <Grid item xs={12} sm={6}>
-          <TextField
-            fullWidth
-            label="Customer Name"
-            value={customerName}
-            onChange={(e) => setCustomerName(e.target.value)}
-            error={Boolean(errors.customerName)}
-            helperText={errors.customerName}
-          />
-        </Grid>
-        <Grid item xs={12} sm={6}>
-          <TextField
-            fullWidth
-            label="Customer Email"
-            type="email"
-            value={customerEmail}
-            onChange={(e) => setCustomerEmail(e.target.value)}
-            error={Boolean(errors.customerEmail)}
-            helperText={errors.customerEmail}
-          />
-        </Grid>
-        <Grid item xs={12} sm={6}>
-          <TextField
-            fullWidth
-            label="Contact Phone"
-            value={contactPhone}
-            onChange={(e) => setContactPhone(e.target.value)}
-            error={Boolean(errors.contactPhone)}
-            helperText={errors.contactPhone}
-          />
-        </Grid>
-        <Grid item xs={12}>
-          <TextField
-            fullWidth
-            label="Special Requests"
-            multiline
-            rows={4}
-            value={specialRequests}
-            onChange={(e) => setSpecialRequests(e.target.value)}
-          />
-        </Grid>
-        <Grid item xs={12}>
-          <Button type="submit" variant="contained" color="primary">
-            Confirm Reservation
-          </Button>
-        </Grid>
-      </Grid>
-    </form>
+      </form>
+    </div>
   );
 };
 
-export default ReservationForm;
+export default Reservation;

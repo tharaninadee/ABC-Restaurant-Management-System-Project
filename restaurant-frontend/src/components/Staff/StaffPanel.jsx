@@ -3,7 +3,7 @@ import { Link, useLocation, Outlet } from 'react-router-dom';
 import { AppBar, Box, Drawer, IconButton, List, ListItem, ListItemText, Toolbar, Typography, Avatar } from '@mui/material';
 import MailOutlineIcon from '@mui/icons-material/MailOutline';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import EventAvailableIcon from '@mui/icons-material/EventAvailable'; // Import the icon for viewing reservations
+import EventAvailableIcon from '@mui/icons-material/EventAvailable';
 
 const drawerWidth = 240;
 
@@ -14,7 +14,7 @@ const StaffPanel = () => {
   const menuItems = [
     { text: 'Respond Queries', link: '/staff/respond-query', icon: <MailOutlineIcon /> },
     { text: 'Update Order Status', link: '/staff/order-status', icon: <ShoppingCartIcon /> },
-    { text: 'View Reservations', link: '/staff/view-reservation', icon: <EventAvailableIcon /> }, // New View Reservations menu item
+    { text: 'View Reservations', link: '/staff/view-reservation', icon: <EventAvailableIcon /> },
   ];
 
   const isActive = (path) => location.pathname === path;
@@ -33,17 +33,19 @@ const StaffPanel = () => {
           flexShrink: 0,
           '& .MuiDrawer-paper': {
             width: drawerWidth,
-            backgroundColor: '#643522',
+            backgroundColor: '#2C3E50',
             color: 'white',
             boxSizing: 'border-box',
+            borderRight: 'none',
           },
         }}
       >
-        <Toolbar>
+        
+         <Toolbar sx={{ backgroundColor: '#34495E', color: 'white' }}>
           <IconButton sx={{ color: 'white', mr: 2 }}>
-            <Avatar />
+            <Avatar sx={{ bgcolor: '#1ABC9C' }}>A</Avatar>
           </IconButton>
-          <Typography variant="h6" sx={{ flexGrow: 1 }}>
+          <Typography variant="h6" sx={{ flexGrow: 1, textAlign: 'center' }}>
             Staff Panel
           </Typography>
         </Toolbar>
@@ -56,16 +58,20 @@ const StaffPanel = () => {
               key={item.text}
               sx={{
                 '&.Mui-selected': {
-                  backgroundColor: 'transparent',
+                  backgroundColor: '#1F2A38',
                   '& .MuiListItemText-primary': {
-                    borderBottom: `2px solid #C2A152`,
+                    color: '#F0E68C', // Highlight color for active item
+                    borderBottom: `2px solid #F0E68C`, // Underline for active item
                   },
                 },
-                color: 'white', // Ensure text color matches the sidebar theme
+                color: 'white',
+                '&:hover': {
+                  backgroundColor: '#344A6A', // Hover color
+                },
               }}
               selected={isActive(item.link)}
             >
-              <IconButton sx={{ color: 'white' }}>{item.icon}</IconButton>
+              <IconButton sx={{ color: 'inherit' }}>{item.icon}</IconButton>
               <ListItemText primary={item.text} sx={{ ml: 1 }} />
             </ListItem>
           ))}
@@ -77,14 +83,18 @@ const StaffPanel = () => {
         component="main"
         sx={{
           flexGrow: 1,
-          p: 1,
+          p: 3,
           ml: `${drawerWidth}px`,
+          backgroundColor: '#F5F5F5', // Light background for main content
         }}
       >
-        <Toolbar />
-        <Typography variant="h4" sx={{ mt: 1 }}>
-          Welcome to Staff Dashboard - ABC Restaurant
-        </Typography>
+        <AppBar position="static" color="transparent" elevation={0} sx={{ mb: 2 }}>
+          <Toolbar>
+            <Typography variant="h4" sx={{ flexGrow: 1 }}>
+              Welcome to Staff Dashboard - ABC Restaurant
+            </Typography>
+          </Toolbar>
+        </AppBar>
         <Outlet /> {/* Render child routes here */}
       </Box>
     </Box>

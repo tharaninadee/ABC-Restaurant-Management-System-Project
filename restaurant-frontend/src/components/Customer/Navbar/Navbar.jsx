@@ -3,7 +3,8 @@ import { AppBar, Toolbar, IconButton, Button, Drawer, List, ListItem, ListItemTe
 import { Menu as MenuIcon, Close as CloseIcon, ShoppingCart as ShoppingCartIcon, AccountCircle as AccountCircleIcon } from '@mui/icons-material';
 import { Link, useLocation } from 'react-router-dom';
 import CartSidebar from '../OrderMenu/CartSidebar'; // Ensure the correct import path
-import ItemCard from '../OrderMenu/ItemCard'; // Ensure the correct import path
+import ItemCard from '../OrderMenu/ItemCard';
+import Login from '../Login/Login'; // Ensure the correct import path
 import './Navbar.css';
 
 const Navbar = () => {

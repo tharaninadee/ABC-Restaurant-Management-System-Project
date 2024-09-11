@@ -517,3 +517,125 @@ video {
   border-radius: 5px; 
   object-fit: cover; 
 }
+
+/* Feature.css */
+
+.feature-container {
+  margin-top: 2rem;
+}
+
+.feature-card {
+  position: relative;
+  max-width: 400px; /* Adjust width as needed */
+  margin: 1rem;
+  transition: transform 0.3s ease-in-out;
+}
+
+.feature-card:hover {
+  transform: scale(1.05); /* Slightly enlarge card on hover */
+}
+
+.feature-card img {
+  width: 100%; /* Ensure image takes full width of card */
+  height: 300px; /* Adjust height as needed */
+  object-fit: cover; /* Ensure image covers the area without distortion */
+}
+
+.feature-card-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+  padding: 1rem; /* Add padding for better text spacing */
+  box-sizing: border-box;
+}
+
+.feature-card:hover .feature-card-overlay {
+  opacity: 1; /* Show overlay on hover */
+}
+
+.feature-card-content {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+  padding: 1rem;
+  box-sizing: border-box;
+}
+
+.feature-card:hover .feature-card-content {
+  opacity: 1; /* Show content on hover */
+}
+
+.feature-card-title {
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.feature-card-description {
+  font-size: 1rem;
+}
+
+/* Home.css */
+.offer-modal {
+  /* Add styling for the modal */
+  width: 80%;
+  max-width: 600px;
+  margin: auto;
+  padding: 20px;
+  background: white;
+  border-radius: 8px;
+  position: relative;
+}
+
+.offer-overlay {
+  /* Add styling for the overlay */
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.view-offer-btn {
+  /* Add styling for the button */
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.view-offer-btn:hover {
+  background-color: #0056b3;
+}
+
+.offer-image {
+  /* Add styling for the offer image */
+  width: 100%;
+  border-radius: 8px;
+}
+
+.close-btn {
+  /* Add styling for the close button */
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+}

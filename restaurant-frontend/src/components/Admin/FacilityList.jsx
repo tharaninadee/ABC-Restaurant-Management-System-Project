@@ -105,96 +105,106 @@ const FacilityList = () => {
 
       {/* Modal for Adding/Editing Facility */}
       <Modal open={showModal} onClose={handleCloseModal}>
-        <Box
-          component={Paper}
-          sx={{
-            width: 400,
-            p: 4,
-            mx: 'auto',
-            mt: '10%',
-            borderRadius: 2,
-            boxShadow: 3,
-            backgroundColor: '#fff',
-          }}
-        >
-          <Typography variant="h6" gutterBottom sx={{ mb: 2, textAlign: 'center', fontWeight: 'bold' }}>
-            {editing ? 'Edit Facility' : 'Add Facility'}
-          </Typography>
-          <form onSubmit={handleSubmit}>
-            <TextField
-              label="Heading"
-              name="heading"
-              value={formData.heading}
-              onChange={handleInputChange}
-              fullWidth
-              required
-              sx={{ mb: 2 }}
-            />
-            <TextField
-              label="Description"
-              name="description"
-              value={formData.description}
-              onChange={handleInputChange}
-              fullWidth
-              required
-              multiline
-              rows={3}
-              sx={{ mb: 2 }}
-            />
-            <TextField
-              label="Start Time"
-              name="startTime"
-              type="time"
-              value={formData.startTime}
-              onChange={handleInputChange}
-              fullWidth
-              required
-              sx={{ mb: 2 }}
-            />
-            <TextField
-              label="End Time"
-              name="endTime"
-              type="time"
-              value={formData.endTime}
-              onChange={handleInputChange}
-              fullWidth
-              required
-              sx={{ mb: 2 }}
-            />
-            <TextField
-              label="Capacity"
-              name="capacity"
-              type="number"
-              value={formData.capacity}
-              onChange={handleInputChange}
-              fullWidth
-              required
-              sx={{ mb: 2 }}
-            />
-            <Button variant="outlined" component="label" fullWidth sx={{ mb: 2 }}>
-              Upload Image
-              <input
-                type="file"
-                hidden
-                onChange={handleImageChange}
-              />
-            </Button>
-            {formData.image && (
-              <Box sx={{ display: 'flex', justifyContent: 'center', mb: 2 }}>
-                <img src={`data:image/jpeg;base64,${formData.image}`} alt="Preview" style={{ width: 100, height: 100, objectFit: 'cover', borderRadius: '8px' }} />
-              </Box>
-            )}
-            <Button type="submit" variant="contained" color="primary" fullWidth>
-              {editing ? 'Update Facility' : 'Add Facility'}
-            </Button>
-          </form>
+  <Box
+    component={Paper}
+    sx={{
+      width: 500,
+      p: 4,
+      mx: 'auto',
+      mt: '10%',
+      borderRadius: 2,
+      boxShadow: 3,
+      backgroundColor: '#fff',
+    }}
+  >
+    <Typography variant="h6" gutterBottom sx={{ mb: 2, textAlign: 'center', fontWeight: 'bold' }}>
+      {editing ? 'Edit Facility' : 'Add Facility'}
+    </Typography>
+    <form onSubmit={handleSubmit}>
+      <TextField
+        label="Heading"
+        name="heading"
+        value={formData.heading}
+        onChange={handleInputChange}
+        fullWidth
+        required
+        sx={{ mb: 2 }}
+      />
+      <TextField
+        label="Description"
+        name="description"
+        value={formData.description}
+        onChange={handleInputChange}
+        fullWidth
+        required
+        multiline
+        rows={3}
+        sx={{ mb: 2 }}
+      />
+      <TextField
+        label="Start Time"
+        name="startTime"
+        type="time"
+        value={formData.startTime}
+        onChange={handleInputChange}
+        fullWidth
+        required
+        sx={{ mb: 2 }}
+      />
+      <TextField
+        label="End Time"
+        name="endTime"
+        type="time"
+        value={formData.endTime}
+        onChange={handleInputChange}
+        fullWidth
+        required
+        sx={{ mb: 2 }}
+      />
+      <TextField
+        label="Capacity"
+        name="capacity"
+        type="number"
+        value={formData.capacity}
+        onChange={handleInputChange}
+        fullWidth
+        required
+        sx={{ mb: 2 }}
+      />
+      <Button
+        variant="outlined"
+        component="label"
+        fullWidth
+        sx={{ mb: 2, textAlign: 'center', borderColor: '#1976d2' }}
+      >
+        Upload Image
+        <input
+          type="file"
+          hidden
+          onChange={handleImageChange}
+        />
+      </Button>
+      {formData.image && (
+        <Box sx={{ display: 'flex', justifyContent: 'center', mb: 2 }}>
+          <img
+            src={`data:image/jpeg;base64,${formData.image}`}
+            alt="Preview"
+            style={{ width: 100, height: 100, objectFit: 'cover', borderRadius: '8px' }}
+          />
         </Box>
-      </Modal>
+      )}
+      <Button type="submit" variant="contained" color="primary" fullWidth>
+        {editing ? 'Update Facility' : 'Add Facility'}
+      </Button>
+    </form>
+  </Box>
+</Modal>
+
 
       {/* Facilities List */}
-      <div className="cater-table-container">
+      <Typography variant="h6" sx={{ mb: 2, fontWeight: 'bold', color: '#333' }}>
         Facilities
-      </div>
+      </Typography>
       <List sx={{ bgcolor: 'background.paper', borderRadius: 2, boxShadow: 1 }}>
         {facilities.map((facility) => (
           <ListItem

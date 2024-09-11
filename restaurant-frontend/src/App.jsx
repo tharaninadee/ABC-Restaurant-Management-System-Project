@@ -11,6 +11,9 @@ import ContactUs from './components/Customer/Contactus/ContactUs';
 import AdminRoutes from './components/Admin/AdminRoutes'; 
 import StaffRoutes from './components/Staff/StaffRoutes'; 
 import Gallery from './components/Customer/Gallery/Gallery';
+import LoginForm from './components/Customer/Login/Login';
+import OfferPopup from './components/Customer/Home/Offerpop';
+
 
 const App = () => {
   const location = useLocation();
@@ -25,12 +28,14 @@ const App = () => {
         <Routes>
           {/* Main app routes */}
           <Route path="/" element={<Home />} />
+          <Route path="/offer" element={<OfferPopup />} />
           <Route path="/order-menu" element={<OrderMenu />} />
           <Route path="/checkout" element={<CheckoutPage />} />
           <Route path="/restaurants" element={<Restaurant />} />
           <Route path="/reservations" element={<Reservation />} />
           <Route path="/contactus" element={<ContactUs />} />
           <Route path="/gallery" element={<Gallery />} />
+          <Route path="/login" element={<LoginForm />} />
 
           {/* Admin panel routes */}
           <Route path="/admin/*" element={<AdminRoutes />} />

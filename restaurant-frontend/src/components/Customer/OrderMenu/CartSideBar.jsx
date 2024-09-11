@@ -20,7 +20,7 @@ const CartSidebar = ({ isOpen, onClose, cart, updateCart }) => {
     const handleCheckout = () => {
         localStorage.setItem('checkoutCart', JSON.stringify(cart)); // Use 'checkoutCart'
         localStorage.setItem('checkoutTotal', calculateTotal());
-        navigate('/checkout');
+        navigate('/login');
     };
 
     return (
