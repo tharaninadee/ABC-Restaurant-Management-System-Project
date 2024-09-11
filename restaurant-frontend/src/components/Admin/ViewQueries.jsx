@@ -1,6 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { Button, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Typography } from '@mui/material';
+import {
+  Button,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Paper,
+  Typography,
+  Box
+} from '@mui/material';
 
 const ViewQueries = () => {
   const [queries, setQueries] = useState([]);
@@ -22,7 +33,7 @@ const ViewQueries = () => {
   const handleDelete = async (queryId) => {
     try {
       await axios.delete(`/api/queries/${queryId}`);
-      setQueries(queries.filter(query => query.id !== queryId));
+      setQueries((prevQueries) => prevQueries.filter(query => query.id !== queryId));
       alert('Query deleted successfully');
     } catch (error) {
       console.error('Error deleting query:', error);
@@ -30,7 +41,7 @@ const ViewQueries = () => {
   };
 
   return (
-    <div>
+    <Box sx={{ p: 3 }}>
       <Typography variant="h4" gutterBottom>
         Admin Panel - View and Delete Queries
       </Typography>
@@ -46,23 +57,35 @@ const ViewQueries = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {queries.map((query) => (
-              <TableRow key={query.id}>
-                <TableCell>{query.customerName}</TableCell>
-                <TableCell>{query.customerEmail}</TableCell>
-                <TableCell>{query.contactPhone}</TableCell>
-                <TableCell>{query.content}</TableCell>
-                <TableCell>
-                  <Button variant="contained" color="secondary" onClick={() => handleDelete(query.id)}>
-                    Delete
-                  </Button>
+            {queries.length > 0 ? (
+              queries.map((query) => (
+                <TableRow key={query.id}>
+                  <TableCell>{query.customerName}</TableCell>
+                  <TableCell>{query.customerEmail}</TableCell>
+                  <TableCell>{query.contactPhone}</TableCell>
+                  <TableCell>{query.content}</TableCell>
+                  <TableCell>
+                    <Button
+                      variant="contained"
+                      color="secondary"
+                      onClick={() => handleDelete(query.id)}
+                    >
+                      Delete
+                    </Button>
+                  </TableCell>
+                </TableRow>
+              ))
+            ) : (
+              <TableRow>
+                <TableCell colSpan={5} align="center">
+                  No queries available
                 </TableCell>
               </TableRow>
-            ))}
+            )}
           </TableBody>
         </Table>
       </TableContainer>
-    </div>
+    </Box>
   );
 };
 

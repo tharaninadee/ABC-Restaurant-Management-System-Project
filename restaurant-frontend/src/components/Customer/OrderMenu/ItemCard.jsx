@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import './Order.css';
 import axios from 'axios';
+import { Typography, Box } from '@mui/material'; // Import Box from Material-UI
 
 const ItemCard = ({ onCartUpdate, cart }) => {
   const [categories, setCategories] = useState([]);
@@ -48,11 +48,6 @@ const ItemCard = ({ onCartUpdate, cart }) => {
 
   return (
     <div className="item-card-container">
-      <div className="menu-header">
-        <h1>ABC RESTAURANT</h1>
-        <h2>--- Explore Our Flavorful Menu ---</h2>
-      </div>
-
       <div className="search-container">
         <input
           type="text"

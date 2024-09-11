@@ -90,9 +90,9 @@ const ReservationManage = () => {
   return (
     <div className="admin-panel-container">
       <Typography variant="h4" gutterBottom>
-        Admin Panel - Manage Reservations
+        Manage Reservations
       </Typography>
-      <TableContainer component={Paper}>
+      <TableContainer component={Paper} elevation={3}>
         <Table>
           <TableHead>
             <TableRow>
@@ -125,6 +125,7 @@ const ReservationManage = () => {
                     variant="contained"
                     color="primary"
                     onClick={() => handleEdit(reservation)}
+                    sx={{ marginRight: 1 }}
                   >
                     Edit
                   </Button>
@@ -143,7 +144,7 @@ const ReservationManage = () => {
       </TableContainer>
 
       {/* Edit Reservation Dialog */}
-      <Dialog open={openDialog} onClose={() => setOpenDialog(false)}>
+      <Dialog open={openDialog} onClose={() => setOpenDialog(false)} maxWidth="sm" fullWidth>
         <DialogTitle>Edit Reservation</DialogTitle>
         <DialogContent>
           {editedReservation && (
@@ -155,6 +156,7 @@ const ReservationManage = () => {
                 value={editedReservation.customerName}
                 onChange={handleChange}
                 fullWidth
+                required
               />
               <TextField
                 margin="normal"
@@ -163,6 +165,8 @@ const ReservationManage = () => {
                 value={editedReservation.customerEmail}
                 onChange={handleChange}
                 fullWidth
+                required
+                type="email"
               />
               <TextField
                 margin="normal"
@@ -171,8 +175,9 @@ const ReservationManage = () => {
                 value={editedReservation.contactPhone}
                 onChange={handleChange}
                 fullWidth
+                required
               />
-              <FormControl fullWidth margin="normal">
+              <FormControl fullWidth margin="normal" required>
                 <InputLabel>Facility</InputLabel>
                 <Select
                   name="facilityHeading"
@@ -194,9 +199,8 @@ const ReservationManage = () => {
                 value={editedReservation.dateTime}
                 onChange={handleChange}
                 fullWidth
-                InputLabelProps={{
-                  shrink: true,
-                }}
+                required
+                InputLabelProps={{ shrink: true }}
               />
               <TextField
                 margin="normal"
@@ -206,6 +210,7 @@ const ReservationManage = () => {
                 value={editedReservation.guestsNumber}
                 onChange={handleChange}
                 fullWidth
+                required
               />
               <TextField
                 margin="normal"
@@ -219,7 +224,7 @@ const ReservationManage = () => {
           )}
         </DialogContent>
         <DialogActions>
-          <Button onClick={() => setOpenDialog(false)} color="primary">
+          <Button onClick={() => setOpenDialog(false)} color="secondary">
             Cancel
           </Button>
           <Button onClick={handleSave} color="primary">

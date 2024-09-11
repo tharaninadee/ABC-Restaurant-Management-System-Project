@@ -59,13 +59,13 @@ const OrderManage = () => {
 
   return (
     <div className="admin-panel-container">
-      <Typography variant="h4" gutterBottom>
+      <div className="cater-table-container">
         Admin Panel - Manage Orders
-      </Typography>
-      <TableContainer component={Paper}>
+      </div>
+      <TableContainer component={Paper} className="table-container">
         <Table>
           <TableHead>
-            <TableRow>
+            <TableRow className="table-header">
               <TableCell>ID</TableCell>
               <TableCell>Customer Name</TableCell>
               <TableCell>Order Type</TableCell>
@@ -82,7 +82,7 @@ const OrderManage = () => {
                 <TableCell>{order.orderType}</TableCell>
                 <TableCell>{order.outlet}</TableCell>
                 <TableCell>Rs. {order.total.toFixed(2)}</TableCell>
-                <TableCell>
+                <TableCell className="table-actions">
                   <Button
                     variant="contained"
                     color="primary"
@@ -106,8 +106,8 @@ const OrderManage = () => {
 
       {/* Edit Order Dialog */}
       <Dialog open={openDialog} onClose={() => setOpenDialog(false)}>
-        <DialogTitle>Edit Order</DialogTitle>
-        <DialogContent>
+        <DialogTitle className="dialog-title">Edit Order</DialogTitle>
+        <DialogContent className="dialog-container">
           {editedOrder && (
             <div>
               <TextField

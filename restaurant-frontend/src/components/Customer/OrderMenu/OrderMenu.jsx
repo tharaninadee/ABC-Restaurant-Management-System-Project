@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import ItemCard from './ItemCard';
 import CartSidebar from './CartSidebar';
-import { Container, Grid } from '@mui/material';
+import { Container, Grid, Typography, Box } from '@mui/material';
+import backgroundImage from '/src/assets/home1.jpg'; // Ensure this path is correct
 
 const OrderMenu = () => {
   // Initialize cart from local storage
@@ -52,6 +53,26 @@ const OrderMenu = () => {
         cart={cart}
         updateCart={handleCartUpdate}
       />
+
+      {/* Header */}
+      <Box
+        sx={{
+          height: 300,
+          backgroundImage: `url(${backgroundImage})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          color: 'white',
+          mb: 4, // Margin bottom to add space between header and content
+          textAlign: 'center'
+        }}
+      >
+        <Typography variant="h3" sx={{ fontWeight: 'bold', mb: 2 }}>
+          Order From the Finest Selections
+        </Typography>
+      </Box>
 
       <Container>
         <Grid container spacing={2}>

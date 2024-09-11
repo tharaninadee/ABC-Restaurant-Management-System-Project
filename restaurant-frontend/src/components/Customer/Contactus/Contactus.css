@@ -1,0 +1,33 @@
+.contact-form-paper {
+    padding: 24px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+  }
+  
+  .contact-form-title {
+    margin-bottom: 16px;
+    color: #333;
+  }
+  
+  .contact-form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .contact-form-button {
+    margin-top: 16px;
+  }
+  
+  .contact-info-paper {
+    padding: 24px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+  }
+  
+  .contact-info-title {
+    margin-bottom: 16px;
+    color: #333;
+  }
+  

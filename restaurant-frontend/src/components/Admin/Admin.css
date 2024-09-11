@@ -220,3 +220,437 @@ button {
 .modal-buttons .btn-secondary:hover {
     background-color: #5a6268;
 }
+
+/* General Styles */
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background-color: #f4f4f4;
+}
+
+.category-form-container {
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.category-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+/* Button Styles */
+.btn {
+    border: none;
+    border-radius: 4px;
+    padding: 10px 15px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+    transition: background-color 0.3s ease;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+}
+
+.btn-secondary {
+    background-color: #6c757d;
+    color: #fff;
+}
+
+.btn-secondary:hover {
+    background-color: #5a6268;
+}
+
+.btn-add-item, .btn-edit-category, .btn-delete-category, .btn-edit-item, .btn-delete-item {
+    background-color: #28a745;
+    color: #fff;
+    margin: 5px;
+}
+
+.btn-add-item:hover, .btn-edit-category:hover, .btn-delete-category:hover, .btn-edit-item:hover, .btn-delete-item:hover {
+    background-color: #218838;
+}
+
+/* Table Styles */
+.category-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.category-table th, .category-table td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.category-table th {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.category-table tr:hover {
+    background-color: #f1f1f1;
+}
+
+.item-details {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.item-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.item-name-price {
+    font-weight: bold;
+}
+
+.item-actions {
+    display: flex;
+    gap: 5px;
+}
+
+/* Modal Styles */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal {
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    max-width: 500px;
+    width: 100%;
+}
+
+.modal h2 {
+    margin-top: 0;
+}
+
+.modal input {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.modal-buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+.modal-buttons .btn {
+    margin: 0;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .category-table th, .category-table td {
+        font-size: 12px;
+        padding: 8px;
+    }
+
+    .modal {
+        padding: 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    .btn {
+        padding: 8px 12px;
+        font-size: 12px;
+    }
+
+    .category-title {
+        font-size: 20px;
+    }
+
+    .modal input {
+        padding: 8px;
+    }
+}
+
+/* General Box Styling */
+.gallery-container {
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+  }
+  
+  /* Header Typography */
+  .gallery-header {
+    margin-bottom: 20px;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  /* Add Gallery Button */
+  .add-gallery-button {
+    background-color: #007bff;
+    color: #fff;
+    margin-bottom: 20px;
+  }
+  
+  .add-gallery-button:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Table Container */
+  .gallery-table-container {
+    margin-top: 20px;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  
+  /* Table Cells */
+  .gallery-table-cell {
+    padding: 12px;
+    text-align: center;
+    vertical-align: middle;
+  }
+  
+  .gallery-table-cell img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 8px;
+  }
+  
+  /* Icon Buttons for Edit/Delete */
+  .icon-button {
+    margin: 0 5px;
+    color: #555;
+  }
+  
+  .icon-button:hover {
+    color: #000;
+  }
+  
+  /* Modal Styling */
+  .modal-container {
+    width: 400px;
+    padding: 20px;
+    background-color: white;
+    margin: auto;
+    margin-top: 10%;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .modal-header {
+    margin-bottom: 20px;
+    font-weight: bold;
+  }
+  
+  .upload-button {
+    margin-bottom: 20px;
+    background-color: #007bff;
+    color: #fff;
+  }
+  
+  .upload-button:hover {
+    background-color: #0056b3;
+  }
+  
+  .preview-image {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    margin-top: 10px;
+    border-radius: 8px;
+  }
+  
+  .submit-button {
+    background-color: #28a745;
+    color: #fff;
+  }
+  
+  .submit-button:hover {
+    background-color: #218838;
+  }
+  
+/* General Styles */
+.manage-users-container {
+    padding: 24px;
+    background-color: #fafafa;
+    border-radius: 8px;
+  }
+  
+  .manage-users-header {
+    margin-bottom: 16px;
+    font-weight: 500;
+  }
+  
+  .manage-users-form {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+    margin-bottom: 16px;
+  }
+  
+  .manage-users-form .MuiTextField-root {
+    width: 100%;
+  }
+  
+  .manage-users-form button {
+    grid-column: span 2;
+  }
+  
+  .manage-users-table {
+    margin-top: 16px;
+  }
+  
+  .manage-users-table .MuiTableCell-root {
+    font-size: 14px;
+    font-weight: 400;
+  }
+  
+  .manage-users-table .MuiTableCell-root img {
+    max-width: 100px;
+    height: auto;
+    margin-top: 16px;
+  }
+  
+  .manage-users-table .MuiTableHead-root {
+    background-color: #f0f0f0;
+  }
+  
+  .manage-users-table .MuiTableHead-root .MuiTableCell-root {
+    font-weight: 600;
+  }
+  
+  .manage-users-table .MuiTableRow-root:hover {
+    background-color: #e0e0e0;
+  }
+  
+  .manage-users-tabs {
+    margin-bottom: 16px;
+  }
+  
+  .manage-users-form .MuiTextField-root {
+    margin-bottom: 16px;
+  }
+  
+  /* General Styles */
+.offer-list-container {
+    padding: 24px;
+    background-color: #fafafa;
+    border-radius: 8px;
+  }
+  
+  .offer-list-header {
+    margin-bottom: 16px;
+    font-weight: 500;
+  }
+  
+  .offer-list-button {
+    margin-bottom: 16px;
+  }
+  
+  .offer-list-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 8px;
+    padding: 8px;
+    border-radius: 4px;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .offer-list-item img {
+    max-width: 100px;
+    height: auto;
+    margin-right: 16px;
+  }
+  
+  .offer-list-item-actions {
+    display: flex;
+    gap: 8px;
+  }
+  
+  .offer-modal-container {
+    width: 400px;
+    padding: 16px;
+    background-color: #fff;
+    margin: auto;
+    margin-top: 10%;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+  
+  .offer-modal-preview {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    margin-top: 8px;
+  }
+  
+  /* Admin Panel Styles */
+.admin-panel-container {
+    padding: 24px;
+    background-color: #f4f4f4;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .admin-panel-container .MuiTypography-h4 {
+    margin-bottom: 24px;
+    color: #333;
+  }
+  
+  .table-container {
+    margin-bottom: 24px;
+  }
+  
+  .table-header {
+    background-color: #f0f0f0;
+    font-weight: 600;
+  }
+  
+  .table-actions button {
+    margin-right: 8px;
+  }
+  
+  .dialog-container {
+    padding: 16px;
+    min-width: 400px;
+  }
+  
+  .dialog-title {
+    font-size: 18px;
+    font-weight: 600;
+  }
+  
+  .dialog-content .MuiTextField-root,
+  .dialog-content .MuiFormControl-root {
+    margin-bottom: 16px;
+  }
+  

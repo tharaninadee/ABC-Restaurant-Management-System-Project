@@ -3,23 +3,6 @@
   padding: 20px;
 }
 
-/* Header for the menu section */
-.menu-header {
-  text-align: center;
-  margin: 20px 0;
-  color: #333;
-}
-
-.menu-header h1 {
-  font-size: 2.5rem;
-  margin-bottom: 10px;
-}
-
-.menu-header h2 {
-  font-size: 1.2rem;
-  color: #777;
-}
-
 /* Search input styling */
 .search-container {
   display: flex;
@@ -63,32 +46,35 @@
 
 /* Container for items */
 .items-container {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
-  justify-content: center;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* Three equal columns */
+  gap: 20px; /* Space between cards */
+  justify-items: center; /* Center cards within their grid cells */
 }
 
 /* Styling for individual item cards */
 .item-card {
-  width: calc(25% - 20px);
+  width: 100%;
+  max-width: 300px; /* Adjust to control card size */
   border: 1px solid #ddd;
   border-radius: 8px;
   padding: 15px;
   text-align: center;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   transition: box-shadow 0.3s ease;
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-.item-card:hover {
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
-}
-
-/* Styling for item images */
+/* Square item image styling */
 .item-image {
   width: 100%;
-  height: auto;
+  aspect-ratio: 1 / 1; /* Ensures the image is square */
+  object-fit: cover;
   border-radius: 8px;
+  margin-bottom: 10px; /* Space between image and text */
 }
 
 /* Actions within item cards */
@@ -114,6 +100,26 @@
 .item-add-button:hover, .item-remove-button:hover {
   background-color: #0056b3;
 }
+
+/* Search input styling */
+.search-container {
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.search-input {
+  width: 100%;
+  max-width: 400px;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+
+
+
 
 /* Cart sidebar styling */
 .cart-sidebar {
@@ -161,93 +167,91 @@
 .checkout-button:hover {
   background-color: #218838;
 }
-
-/* Place order styling */
-.place-order {
+/* Style for the header section with background image */
+.checkout-header {
+  height: 300px;
+  background-image: url('/src/assets/home1.jpg'); /* Path to the background image */
+  background-size: cover;
+  background-position: center;
   display: flex;
-  flex-wrap: wrap; /* Allow wrapping for smaller screens */
-  gap: 20px; /* Reduced gap */
-  margin-top: 50px;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.checkout-header h1 {
+  font-size: 3rem;
+  font-weight: bold;
+  margin: 0;
+}
+
+/* Container for the main content */
+.place-order {
+  padding: 40px 0;
 }
 
 .place-order-paper {
-  padding: 24px;
-  flex: 1; /* Allow flexible width */
+  padding: 20px;
+  background-color: #ffffff;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
 }
 
+/* Style for the left section of the checkout */
 .place-order-left {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  flex: 1; /* Allow flexible width */
+  margin-right: 20px;
 }
 
-.title {
-  font-size: 2rem; /* Adjust font size for smaller screens */
-  font-weight: 600;
+.place-order-left .title {
   margin-bottom: 20px;
 }
 
-.place-order-left input,
-.place-order-left textarea {
-  margin-bottom: 15px;
-  padding: 10px;
-  border: 1px solid #c5c5c5;
-  border-radius: 4px;
-  outline-color: var(--primary-color);
+/* Style for form fields */
+.MuiTextField-root {
+  margin-bottom: 16px;
 }
 
-.place-order-left .multi-fields {
-  display: flex;
-  flex-wrap: wrap; /* Allow wrapping on smaller screens */
-  gap: 10px;
+/* Style for form controls */
+.MuiFormControl-root {
+  margin-bottom: 16px;
 }
 
+/* Style for the right section of the checkout */
 .place-order-right {
-  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
 }
 
-/* Cart total styling */
 .cart-total {
   padding: 16px;
+  background-color: #f8f8f8;
+  border-radius: 8px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: left;
+  width: 100%;
 }
 
-.cart-total button {
-  margin-top: 30px;
+.cart-total .title {
+  margin-bottom: 16px;
 }
 
-/* Media Queries */
-@media (max-width: 1200px) {
-  .item-card {
-    width: calc(33.33% - 20px); /* Three items per row */
-  }
+.cart-total hr {
+  margin: 16px 0;
 }
 
-@media (max-width: 900px) {
-  .item-card {
-    width: calc(50% - 20px); /* Two items per row */
-  }
-
-  .search-input {
-    width: 90%;
-  }
-
-  .place-order {
-    gap: 30px;
-  }
+.cart-total .MuiButton-root {
+  margin-top: 20px;
 }
 
-@media (max-width: 750px) {
-  .item-card {
-    width: 100%; /* One item per row */
-  }
+/* Error alert styling */
+.error-alert {
+  margin-top: 16px;
+}
 
-  .place-order {
-    flex-direction: column;
-    gap: 20px;
-  }
-
-  .place-order-left .multi-fields {
-    flex-direction: column; /* Stack fields vertically on small screens */
-  }
+/* Spinner styling */
+.MuiCircularProgress-root {
+  margin-right: 8px;
 }

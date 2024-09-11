@@ -1,0 +1,32 @@
+/* Gallery.css */
+
+/* Gallery buttons styling */
+.gallery-buttons {
+    display: flex;
+    flex-wrap: wrap; /* Allow buttons to wrap on smaller screens */
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+  
+  .gallery-button {
+    margin: 5px; /* Reduced margin for smaller screens */
+    padding: 10px 20px;
+    border: none;
+    background-color: #643522;
+    color: white;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .gallery-button.active {
+    background-color: #8c6d5c;
+  }
+  
+  /* Image styling */
+  .item-image {
+    width: 100%;
+    height: auto;
+  }
+  

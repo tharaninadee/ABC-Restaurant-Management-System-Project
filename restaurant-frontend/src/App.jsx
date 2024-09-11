@@ -10,6 +10,7 @@ import Reservation from './components/Customer/Restaurants/Reservation';
 import ContactUs from './components/Customer/Contactus/ContactUs';
 import AdminRoutes from './components/Admin/AdminRoutes'; 
 import StaffRoutes from './components/Staff/StaffRoutes'; 
+import Gallery from './components/Customer/Gallery/Gallery';
 
 const App = () => {
   const location = useLocation();
@@ -29,6 +30,7 @@ const App = () => {
           <Route path="/restaurants" element={<Restaurant />} />
           <Route path="/reservations" element={<Reservation />} />
           <Route path="/contactus" element={<ContactUs />} />
+          <Route path="/gallery" element={<Gallery />} />
 
           {/* Admin panel routes */}
           <Route path="/admin/*" element={<AdminRoutes />} />
