@@ -9,4 +9,5 @@ import java.util.Optional;
 @Repository
 public interface AdminRepository extends MongoRepository<Admin, String> {
     Optional<Admin> findByEmail(String email);
+    boolean existsByEmail(String email); // Add this method to check if an email exists
 }

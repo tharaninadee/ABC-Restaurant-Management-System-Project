@@ -1,25 +1,16 @@
 package com.abc.restaurant.backend.controller;
 
-import java.util.List;
-import java.util.Optional;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-
 import com.abc.restaurant.backend.model.Admin;
 import com.abc.restaurant.backend.model.Customer;
 import com.abc.restaurant.backend.model.Staff;
 import com.abc.restaurant.backend.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/user")
@@ -28,40 +19,37 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    // Admin endpoints
+    // Admin Endpoints
+
     @PostMapping("/admin")
-    public ResponseEntity<Admin> createOrUpdateAdmin(@RequestBody Admin admin) {
+    public ResponseEntity<Admin> createAdmin(@RequestBody Admin admin) {
         try {
             Admin savedAdmin = userService.saveAdmin(admin);
-            return ResponseEntity.ok(savedAdmin);
+            return new ResponseEntity<>(savedAdmin, HttpStatus.CREATED);
         } catch (IllegalArgumentException e) {
-            return ResponseEntity.badRequest().body(null);
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
         }
     }
 
     @GetMapping("/admin")
     public ResponseEntity<List<Admin>> getAllAdmins() {
         List<Admin> admins = userService.getAllAdmins();
-        return ResponseEntity.ok(admins);
+        return new ResponseEntity<>(admins, HttpStatus.OK);
     }
 
     @GetMapping("/admin/{id}")
     public ResponseEntity<Admin> getAdminById(@PathVariable String id) {
         Optional<Admin> admin = userService.getAdminById(id);
-        if (admin.isPresent()) {
-            return ResponseEntity.ok(admin.get());
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+        return admin.map(ResponseEntity::ok).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
     @PutMapping("/admin/{id}")
     public ResponseEntity<Admin> updateAdmin(@PathVariable String id, @RequestBody Admin admin) {
         try {
             Admin updatedAdmin = userService.updateAdmin(id, admin);
-            return ResponseEntity.ok(updatedAdmin);
-        } catch (RuntimeException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+            return new ResponseEntity<>(updatedAdmin, HttpStatus.OK);
+        } catch (IllegalArgumentException e) {
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
         }
     }
 
@@ -69,46 +57,43 @@ public class UserController {
     public ResponseEntity<Void> deleteAdmin(@PathVariable String id) {
         try {
             userService.deleteAdmin(id);
-            return ResponseEntity.noContent().build();
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } catch (IllegalArgumentException e) {
-            return ResponseEntity.notFound().build();
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
 
-    // Staff endpoints
+    // Staff Endpoints
+
     @PostMapping("/staff")
-    public ResponseEntity<Staff> createOrUpdateStaff(@RequestBody Staff staff) {
+    public ResponseEntity<Staff> createStaff(@RequestBody Staff staff) {
         try {
             Staff savedStaff = userService.saveStaff(staff);
-            return ResponseEntity.ok(savedStaff);
+            return new ResponseEntity<>(savedStaff, HttpStatus.CREATED);
         } catch (IllegalArgumentException e) {
-            return ResponseEntity.badRequest().body(null);
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
         }
     }
 
     @GetMapping("/staff")
     public ResponseEntity<List<Staff>> getAllStaff() {
-        List<Staff> staff = userService.getAllStaff();
-        return ResponseEntity.ok(staff);
+        List<Staff> staffList = userService.getAllStaff();
+        return new ResponseEntity<>(staffList, HttpStatus.OK);
     }
 
     @GetMapping("/staff/{id}")
     public ResponseEntity<Staff> getStaffById(@PathVariable String id) {
         Optional<Staff> staff = userService.getStaffById(id);
-        if (staff.isPresent()) {
-            return ResponseEntity.ok(staff.get());
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+        return staff.map(ResponseEntity::ok).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
     @PutMapping("/staff/{id}")
     public ResponseEntity<Staff> updateStaff(@PathVariable String id, @RequestBody Staff staff) {
         try {
             Staff updatedStaff = userService.updateStaff(id, staff);
-            return ResponseEntity.ok(updatedStaff);
-        } catch (RuntimeException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+            return new ResponseEntity<>(updatedStaff, HttpStatus.OK);
+        } catch (IllegalArgumentException e) {
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
         }
     }
 
@@ -116,42 +101,43 @@ public class UserController {
     public ResponseEntity<Void> deleteStaff(@PathVariable String id) {
         try {
             userService.deleteStaff(id);
-            return ResponseEntity.noContent().build();
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } catch (IllegalArgumentException e) {
-            return ResponseEntity.notFound().build();
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
 
-    // Customer endpoints
+    // Customer Endpoints
+
     @PostMapping("/customer")
-    public ResponseEntity<Customer> createOrUpdateCustomer(@RequestBody Customer customer) {
+    public ResponseEntity<Customer> createCustomer(@RequestBody Customer customer) {
         try {
             Customer savedCustomer = userService.saveCustomer(customer);
-            return ResponseEntity.ok(savedCustomer);
+            return new ResponseEntity<>(savedCustomer, HttpStatus.CREATED);
         } catch (IllegalArgumentException e) {
-            return ResponseEntity.badRequest().body(null);
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
         }
     }
 
     @GetMapping("/customer")
     public ResponseEntity<List<Customer>> getAllCustomers() {
         List<Customer> customers = userService.getAllCustomers();
-        return ResponseEntity.ok(customers);
+        return new ResponseEntity<>(customers, HttpStatus.OK);
     }
 
     @GetMapping("/customer/{id}")
     public ResponseEntity<Customer> getCustomerById(@PathVariable String id) {
         Optional<Customer> customer = userService.getCustomerById(id);
-        return customer.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+        return customer.map(ResponseEntity::ok).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
     @PutMapping("/customer/{id}")
     public ResponseEntity<Customer> updateCustomer(@PathVariable String id, @RequestBody Customer customer) {
         try {
             Customer updatedCustomer = userService.updateCustomer(id, customer);
-            return ResponseEntity.ok(updatedCustomer);
-        } catch (RuntimeException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+            return new ResponseEntity<>(updatedCustomer, HttpStatus.OK);
+        } catch (IllegalArgumentException e) {
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
         }
     }
 
@@ -159,13 +145,14 @@ public class UserController {
     public ResponseEntity<Void> deleteCustomer(@PathVariable String id) {
         try {
             userService.deleteCustomer(id);
-            return ResponseEntity.noContent().build();
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } catch (IllegalArgumentException e) {
-            return ResponseEntity.notFound().build();
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
 
-    // Authentication endpoints
+    // Authentication Endpoints
+
     @PostMapping("/login/admin")
     public ResponseEntity<?> loginAdmin(@RequestParam String email, @RequestParam String password) {
         Optional<Admin> admin = userService.authenticateAdmin(email, password);
@@ -195,4 +182,8 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid credentials");
         }
     }
+
+
+
+
 }

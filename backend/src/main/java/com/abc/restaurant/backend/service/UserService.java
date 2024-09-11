@@ -1,18 +1,17 @@
 package com.abc.restaurant.backend.service;
 
-import java.time.LocalDateTime;
-import java.util.List;
-import java.util.Optional;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import com.abc.restaurant.backend.model.Admin;
 import com.abc.restaurant.backend.model.Customer;
 import com.abc.restaurant.backend.model.Staff;
 import com.abc.restaurant.backend.repository.AdminRepository;
 import com.abc.restaurant.backend.repository.CustomerRepository;
 import com.abc.restaurant.backend.repository.StaffRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserService {
@@ -138,6 +137,7 @@ public class UserService {
                 .filter(customer -> customer.getPassword().equals(password));
     }
 
+
     // Signup Method
     public Customer signupCustomer(Customer customer) {
         validateUser(customer);
@@ -151,23 +151,20 @@ public class UserService {
 
     // Common Validation Method
     private void validateUser(Object user) {
-        switch (user) {
-            case Admin admin -> {
-                if (admin.getUsername() == null || admin.getEmail() == null) {
-                    throw new IllegalArgumentException("Username and email are required");
-                }
+        if (user instanceof Admin admin) {
+            if (admin.getUsername() == null || admin.getEmail() == null) {
+                throw new IllegalArgumentException("Username and email are required");
             }
-            case Staff staff -> {
-                if (staff.getUsername() == null || staff.getEmail() == null) {
-                    throw new IllegalArgumentException("Username and email are required");
-                }
+        } else if (user instanceof Staff staff) {
+            if (staff.getUsername() == null || staff.getEmail() == null) {
+                throw new IllegalArgumentException("Username and email are required");
             }
-            case Customer customer -> {
-                if (customer.getUsername() == null || customer.getEmail() == null) {
-                    throw new IllegalArgumentException("Username and email are required");
-                }
+        } else if (user instanceof Customer customer) {
+            if (customer.getUsername() == null || customer.getEmail() == null) {
+                throw new IllegalArgumentException("Username and email are required");
             }
-            default -> throw new IllegalArgumentException("Unsupported user type");
+        } else {
+            throw new IllegalArgumentException("Unsupported user type");
         }
     }
 }
