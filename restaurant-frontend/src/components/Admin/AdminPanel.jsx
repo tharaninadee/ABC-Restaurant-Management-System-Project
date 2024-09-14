@@ -118,7 +118,6 @@ const AdminPanel = () => {
         sx={{
           flexGrow: 1,
           p: 3,
-          ml: { sm: `${drawerWidth}px` },
           backgroundColor: '#ECF0F1',
           minHeight: '100vh',
         }}

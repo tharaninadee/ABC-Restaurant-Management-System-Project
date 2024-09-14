@@ -31,7 +31,7 @@ public class RestaurantController {
         return restaurant.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    // Add a new restaurant
+    // Add a new restaurants
     @PostMapping
     public ResponseEntity<Restaurant> addRestaurant(@RequestBody Restaurant restaurant) {
         try {

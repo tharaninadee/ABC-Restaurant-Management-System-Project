@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Link, useLocation, Outlet } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Link, useLocation, Outlet, useNavigate } from 'react-router-dom';
 import { AppBar, Box, Drawer, IconButton, List, ListItem, ListItemText, Toolbar, Typography, Avatar } from '@mui/material';
 import MailOutlineIcon from '@mui/icons-material/MailOutline';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
@@ -8,8 +8,10 @@ import EventAvailableIcon from '@mui/icons-material/EventAvailable';
 const drawerWidth = 240;
 
 const StaffPanel = () => {
-  const [drawerOpen, setDrawerOpen] = useState(false);
+  const [drawerOpen, setDrawerOpen] = useState(true);
   const location = useLocation();
+  const navigate = useNavigate();
+  const [loading, setLoading] = useState(true);
 
   const menuItems = [
     { text: 'Respond Queries', link: '/staff/respond-query', icon: <MailOutlineIcon /> },
@@ -22,6 +24,15 @@ const StaffPanel = () => {
   const toggleDrawer = () => {
     setDrawerOpen(!drawerOpen);
   };
+
+  useEffect(() => {
+    const userSession = sessionStorage.getItem('userSession');
+    if (!userSession) {
+      navigate('/admin/login'); // Redirect to login page if not authenticated
+    } else {
+      setLoading(false);
+    }
+  }, [navigate]);
 
   return (
     <Box sx={{ display: 'flex' }}>
@@ -40,8 +51,7 @@ const StaffPanel = () => {
           },
         }}
       >
-        
-         <Toolbar sx={{ backgroundColor: '#34495E', color: 'white' }}>
+        <Toolbar sx={{ backgroundColor: '#34495E', color: 'white' }}>
           <IconButton sx={{ color: 'white', mr: 2 }}>
             <Avatar sx={{ bgcolor: '#1ABC9C' }}>A</Avatar>
           </IconButton>
@@ -84,7 +94,6 @@ const StaffPanel = () => {
         sx={{
           flexGrow: 1,
           p: 3,
-          ml: `${drawerWidth}px`,
           backgroundColor: '#F5F5F5', // Light background for main content
         }}
       >

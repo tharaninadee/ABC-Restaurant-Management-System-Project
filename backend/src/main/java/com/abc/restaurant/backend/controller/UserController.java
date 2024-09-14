@@ -151,7 +151,7 @@ public class UserController {
         }
     }
 
-    // Authentication Endpoints
+    // Authentication Endpoints for login
 
     @PostMapping("/login/admin")
     public ResponseEntity<?> loginAdmin(@RequestParam String email, @RequestParam String password) {
