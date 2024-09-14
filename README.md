@@ -11,7 +11,7 @@ This is a comprehensive Restaurant Management System built using React for the f
 - **Admin Panel**: View, edit, and manage offers, facilities, categories, and user roles.
 - **User Management**: Handle login, signup, and role-based access control for admins, staff, and customers.
 - **Email Notifications**: Send confirmation emails for reservations and orders.
-- **Responsive Design**: Professional and minimal design with responsive CSS stylingmand Material UI.
+- **Responsive Design**: Professional and minimal design with responsive CSS styling and Material UI.
 
 ## Technologies Used
 
