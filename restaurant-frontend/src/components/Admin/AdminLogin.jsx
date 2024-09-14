@@ -7,18 +7,19 @@ const AdminLogin = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
-  const navigate = useNavigate();  // Initialize useNavigate
+  const navigate = useNavigate(); 
 
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
       const response = await axios.post('/api/user/login/admin', { email, password });
       if (response.status === 200) {
-        navigate('/admin/panel');  // Redirect to the admin panel
+        // Optionally: Save auth token or session info if needed
+        navigate('/admin/panel'); // Redirect to the admin panel
       }
     } catch (error) {
-      console.error('Login error:', error.response?.data || error.message);  // Log detailed error
-      setError('Invalid credentials');
+      console.error('Login error:', error.response?.data || error.message); 
+      setError('Invalid credentials. Please try again.');
     }
   };
 
@@ -64,7 +65,7 @@ const AdminLogin = () => {
             onChange={(e) => setPassword(e.target.value)}
           />
           {error && (
-            <Typography color="error" variant="body2">
+            <Typography color="error" variant="body2" sx={{ mt: 2 }}>
               {error}
             </Typography>
           )}
