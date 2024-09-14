@@ -20,8 +20,6 @@ This is a comprehensive Restaurant Management System built using React for the f
 - **Email Service**: JavaMail
 
 
-## Getting Started
-
 ### Prerequisites
 
 - Java JDK 11 or higher
