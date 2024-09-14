@@ -8,7 +8,8 @@ This is a comprehensive Restaurant Management System built using React for the f
 
 - **Cart and Checkout System**: Manage cart items, handle checkout processes, and store order information.
 - **Reservation System**: Make and manage reservations for dine-in facilities with capacity limits.
-- **Admin Panel**: View, edit, and manage offers, facilities, categories, and user roles.
+- **Admin Panel**: View, edit, and manage offers, facilities, features, restaurants, categories, reservations and orders and user roles.
+- **Staff Panel**: View reservations, update order status and respond to customer queries.
 - **User Management**: Handle login, signup, and role-based access control for admins, staff, and customers.
 - **Email Notifications**: Send confirmation emails for reservations and orders.
 - **Responsive Design**: Professional and minimal design with responsive CSS styling and Material UI.
