@@ -195,7 +195,7 @@ const Home = () => {
             <p>Our restaurant offers a unique dining experience with delicious dishes crafted from the finest ingredients. We are passionate about delivering an authentic taste of Sri Lanka with a modern twist.</p>
             <p>Established in 2024, our restaurant has been dedicated to bringing exceptional dining experiences to our guests. We pride ourselves on providing excellent service and a warm, inviting atmosphere.</p>
             <div className="button-container">
-              <a href="#order" className="button">Order Now</a>
+              <a href="./order-menu" className="button">Order Now</a>
               <a href="./reservations" className="button">Make Reservation</a>
             </div>
           </div>
