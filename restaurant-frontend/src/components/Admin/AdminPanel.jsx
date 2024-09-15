@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Link, useLocation, Outlet } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Link, useLocation, Outlet, useNavigate } from 'react-router-dom'; // Added useNavigate
 import { Box, Drawer, IconButton, List, ListItem, ListItemText, Toolbar, Typography, Avatar, Button } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import CategoryIcon from '@mui/icons-material/Category';
@@ -18,6 +18,14 @@ const drawerWidth = 240;
 const AdminPanel = () => {
   const [drawerOpen, setDrawerOpen] = useState(true);
   const location = useLocation();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const userSession = sessionStorage.getItem('adminSession'); // Updated to 'adminSession'
+    if (!userSession) {
+      navigate('/admin/login'); // Redirect to login page if not authenticated
+    }
+  }, [navigate]);
 
   const menuItems = [
     { text: 'Add Category', link: '/admin/category', icon: <CategoryIcon /> },
@@ -39,7 +47,7 @@ const AdminPanel = () => {
   };
 
   const handleSignOut = () => {
-    localStorage.removeItem('adminSession');
+    sessionStorage.removeItem('adminSession'); // Use sessionStorage instead of localStorage
     window.location.href = '/';
   };
 
